@@ -13,18 +13,44 @@ class HomeController: UICollectionViewController {
     let cellId = "cellId"
     let cellPading : CGFloat = 10
 
+    var items : [Item] = [Item(image: "kiwi", title: "Kiwi Jam"),
+                          Item(image: "strawberry", title: "Strawberry Jam")]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(HomeMenuCell.self, forCellWithReuseIdentifier: cellId)
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout{
             layout.sectionInset = .init(top: cellPading, left: cellPading, bottom: cellPading, right: cellPading)
         }
+        
+        setupNavigation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    fileprivate func setupNavigation(){
+        navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Menu"
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationController?.navigationBar.largeTitleTextAttributes = attributedText(fontSize: 40)
+        navigationController?.navigationBar.barTintColor = UIColor.rgb(red: 240, green: 96, blue: 98)
+        navigationController?.navigationBar.titleTextAttributes = attributedText(fontSize: 14)
         navigationController?.navigationBar.barTintColor = UIColor.rgb(red: 240, green: 96, blue: 98)
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAddItem))
+        navigationController?.navigationBar.tintColor = UIColor.rgb(red: 233, green: 206, blue: 111)
+        navigationController?.hidesBarsOnSwipe = true
+    }
+    
+    @objc func handleAddItem(){
+        print("Add")
+    }
+    
+    fileprivate func attributedText(fontSize : CGFloat) -> [NSAttributedString.Key : Any] {
+        return [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: fontSize), NSAttributedString.Key.foregroundColor : UIColor.customTextColor()]
     }
 
 
@@ -33,12 +59,12 @@ class HomeController: UICollectionViewController {
 extension HomeController : UICollectionViewDelegateFlowLayout{
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return items.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        cell.backgroundColor = .blue
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeMenuCell
+        cell.item = items[indexPath.item]
         return cell
     }
     
@@ -47,6 +73,20 @@ extension HomeController : UICollectionViewDelegateFlowLayout{
         return CGSize(width: width, height: 200)
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailsController = DetailsController()
+        navigationController?.pushViewController(detailsController, animated: true)
+    }
     
+}
+
+struct Item{
+    let image : String
+    let title : String
+    
+    init(image:String,title:String){
+        self.image = image
+        self.title = title
+    }
 }
 
