@@ -74,7 +74,7 @@ extension HomeController : UICollectionViewDelegateFlowLayout{
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailsController = DetailsController()
+        let detailsController = DetailsController(collectionViewLayout : UICollectionViewFlowLayout())
         navigationController?.pushViewController(detailsController, animated: true)
     }
     
