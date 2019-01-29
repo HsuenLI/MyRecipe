@@ -26,7 +26,7 @@ class DetailsController : UICollectionViewController {
         collectionView.register(DetailsCell.self, forCellWithReuseIdentifier: cellId)
         
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout{
-            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: cellPadding, right: 0)
+            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 2*cellPadding, right: 0)
         }
 
         collectionView.contentInset = UIEdgeInsets(top: cellPadding, left: cellPadding, bottom: 0, right: cellPadding)
@@ -40,7 +40,7 @@ extension DetailsController : UICollectionViewDelegateFlowLayout{
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let width = view.frame.width - 16
+        let width = view.frame.width - (2*cellPadding)
         return CGSize(width: width, height: 50)
     }
     
@@ -57,13 +57,13 @@ extension DetailsController : UICollectionViewDelegateFlowLayout{
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        cell.backgroundColor = .orange
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width - 16
-        return CGSize(width: width, height: 30)
+        let width = collectionView.frame.width - (2*cellPadding)
+        return CGSize(width: width, height: 50)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
