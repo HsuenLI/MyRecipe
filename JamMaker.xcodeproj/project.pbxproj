@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CF14D6EE21FF5E60006B055B /* DetailHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF14D6ED21FF5E60006B055B /* DetailHeaderCell.swift */; };
-		CF14D6F021FF68BA006B055B /* DetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF14D6EF21FF68BA006B055B /* DetailsCell.swift */; };
+		CF14D6F021FF68BA006B055B /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF14D6EF21FF68BA006B055B /* IngredientCell.swift */; };
+		CF14D6F22201E6B0006B055B /* StepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF14D6F12201E6B0006B055B /* StepsCell.swift */; };
 		CF93895A21FDB7AB00090DAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93895921FDB7AB00090DAF /* AppDelegate.swift */; };
 		CF93895C21FDB7AB00090DAF /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93895B21FDB7AB00090DAF /* HomeController.swift */; };
 		CF93896221FDB7AB00090DAF /* JamMaker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CF93896021FDB7AB00090DAF /* JamMaker.xcdatamodeld */; };
@@ -21,7 +22,8 @@
 
 /* Begin PBXFileReference section */
 		CF14D6ED21FF5E60006B055B /* DetailHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderCell.swift; sourceTree = "<group>"; };
-		CF14D6EF21FF68BA006B055B /* DetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCell.swift; sourceTree = "<group>"; };
+		CF14D6EF21FF68BA006B055B /* IngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
+		CF14D6F12201E6B0006B055B /* StepsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsCell.swift; sourceTree = "<group>"; };
 		CF93895621FDB7AB00090DAF /* JamMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JamMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF93895921FDB7AB00090DAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF93895B21FDB7AB00090DAF /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -74,7 +76,8 @@
 				CF93896E21FDC3E400090DAF /* Extension.swift */,
 				CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */,
 				CF14D6ED21FF5E60006B055B /* DetailHeaderCell.swift */,
-				CF14D6EF21FF68BA006B055B /* DetailsCell.swift */,
+				CF14D6EF21FF68BA006B055B /* IngredientCell.swift */,
+				CF14D6F12201E6B0006B055B /* StepsCell.swift */,
 			);
 			path = JamMaker;
 			sourceTree = "<group>";
@@ -151,8 +154,9 @@
 			files = (
 				CF93895C21FDB7AB00090DAF /* HomeController.swift in Sources */,
 				CF93897121FDCBAF00090DAF /* HomeMenuCell.swift in Sources */,
-				CF14D6F021FF68BA006B055B /* DetailsCell.swift in Sources */,
+				CF14D6F021FF68BA006B055B /* IngredientCell.swift in Sources */,
 				CF93896221FDB7AB00090DAF /* JamMaker.xcdatamodeld in Sources */,
+				CF14D6F22201E6B0006B055B /* StepsCell.swift in Sources */,
 				CF93895A21FDB7AB00090DAF /* AppDelegate.swift in Sources */,
 				CF14D6EE21FF5E60006B055B /* DetailHeaderCell.swift in Sources */,
 				CF93899821FE13F100090DAF /* DetailsController.swift in Sources */,

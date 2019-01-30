@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailsCell : UICollectionViewCell {
+class IngredientCell : UICollectionViewCell {
     
     let titleLabel : UILabel = {
         let label = UILabel()
