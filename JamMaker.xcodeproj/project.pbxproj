@@ -47,6 +47,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF14D6F32201FC2C006B055B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CF14D6EF21FF68BA006B055B /* IngredientCell.swift */,
+				CF14D6F12201E6B0006B055B /* StepsCell.swift */,
+				CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */,
+				CF14D6ED21FF5E60006B055B /* DetailHeaderCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CF14D6F42201FC46006B055B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CF93895B21FDB7AB00090DAF /* HomeController.swift */,
+				CF93899721FE13F100090DAF /* DetailsController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		CF93894D21FDB7AB00090DAF = {
 			isa = PBXGroup;
 			children = (
@@ -66,18 +86,14 @@
 		CF93895821FDB7AB00090DAF /* JamMaker */ = {
 			isa = PBXGroup;
 			children = (
+				CF14D6F42201FC46006B055B /* Controller */,
+				CF14D6F32201FC2C006B055B /* View */,
 				CF93895921FDB7AB00090DAF /* AppDelegate.swift */,
-				CF93899721FE13F100090DAF /* DetailsController.swift */,
-				CF93895B21FDB7AB00090DAF /* HomeController.swift */,
 				CF93896321FDB7AC00090DAF /* Assets.xcassets */,
 				CF93896521FDB7AC00090DAF /* LaunchScreen.storyboard */,
 				CF93896821FDB7AC00090DAF /* Info.plist */,
 				CF93896021FDB7AB00090DAF /* JamMaker.xcdatamodeld */,
 				CF93896E21FDC3E400090DAF /* Extension.swift */,
-				CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */,
-				CF14D6ED21FF5E60006B055B /* DetailHeaderCell.swift */,
-				CF14D6EF21FF68BA006B055B /* IngredientCell.swift */,
-				CF14D6F12201E6B0006B055B /* StepsCell.swift */,
 			);
 			path = JamMaker;
 			sourceTree = "<group>";
@@ -299,6 +315,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SUZY35U5GK;
 				INFOPLIST_FILE = JamMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -316,6 +333,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SUZY35U5GK;
 				INFOPLIST_FILE = JamMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

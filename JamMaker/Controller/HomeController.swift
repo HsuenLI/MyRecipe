@@ -52,8 +52,12 @@ class HomeController: UICollectionViewController {
     fileprivate func attributedText(fontSize : CGFloat) -> [NSAttributedString.Key : Any] {
         return [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: fontSize), NSAttributedString.Key.foregroundColor : UIColor.customTextColor()]
     }
-
-
+    
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
 }
 
 extension HomeController : UICollectionViewDelegateFlowLayout{

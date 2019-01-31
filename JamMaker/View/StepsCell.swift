@@ -33,10 +33,15 @@ class StepsCell : UICollectionViewCell {
         super.init(frame: frame)
         addSubview(titleLabel)
         addSubview(photoImageView)
+        let separatorView = UIView()
+        separatorView.backgroundColor = UIColor(white: 0, alpha: 0.3)
         backgroundColor = .white
-        titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 0, paddingRight: 4, width: 0, height: 80)
-        photoImageView.anchor(top: titleLabel.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 4, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: frame.width, height: 0)
-        photoImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
+        addSubview(separatorView)
+        separatorView.anchor(top: bottomAnchor, left: safeAreaLayoutGuide.leftAnchor, bottom: nil, right: safeAreaLayoutGuide.rightAnchor, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, width: 0, height: 0.5)
+        titleLabel.anchor(top: topAnchor, left: safeAreaLayoutGuide.leftAnchor, bottom: nil, right: safeAreaLayoutGuide.rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 0, paddingRight: 4, width: 0, height: 80)
+        photoImageView.anchor(top: titleLabel.bottomAnchor, left: safeAreaLayoutGuide.leftAnchor, bottom: nil, right: nil, paddingTop: 4, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        photoImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 1).isActive = true
+        photoImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.8).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
