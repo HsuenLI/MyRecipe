@@ -22,6 +22,10 @@ class HomeController: UICollectionViewController {
         collectionView.register(HomeMenuCell.self, forCellWithReuseIdentifier: cellId)
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout{
             layout.sectionInset = .init(top: cellPading, left: cellPading, bottom: cellPading, right: cellPading)
+        let backIcon = UIImage(named: "back_icon")
+        navigationController?.navigationBar.backIndicatorImage = backIcon
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backIcon
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: self, action: nil)
         }
         
         setupNavigation()
