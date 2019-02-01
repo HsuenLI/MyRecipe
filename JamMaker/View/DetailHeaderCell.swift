@@ -32,7 +32,6 @@ class DetailHeaderCell : UICollectionReusableView{
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.rgb(red: 240, green: 96, blue: 98)
-        roundCorners(corners: [.topLeft, .topRight] , radius: 5)
         
         addSubview(titleLabel)
         addSubview(arrowButton)
@@ -40,9 +39,9 @@ class DetailHeaderCell : UICollectionReusableView{
         titleLabel.anchor(top: nil, left: safeAreaLayoutGuide.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 200, height: 0)
         titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
-        arrowButton.anchor(top: nil, left: titleLabel.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 44, height: 44)
+        arrowButton.anchor(top: nil, left: nil, bottom: nil, right: safeAreaLayoutGuide.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 44, height: 44)
         arrowButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
+        roundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 10)
     }
     
     
@@ -50,4 +49,11 @@ class DetailHeaderCell : UICollectionReusableView{
         fatalError("init(coder:) has not been implemented")
     }
     
+    func roundCorners(corners:CACornerMask, radius: CGFloat) {
+        self.layer.cornerRadius = radius
+        self.layer.maskedCorners = corners
+    }
+    
 }
+
+
