@@ -70,7 +70,17 @@ extension UIView{
     func fullConstraint(){
         anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
     }
+}
+
+extension UICollectionView{
     
+    func customCollectionViewLayout(cellPadding : CGFloat){
+        if let layout = collectionViewLayout as? UICollectionViewFlowLayout{
+            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 2*cellPadding, right: 0)
+        }
+        
+        contentInset = UIEdgeInsets(top: cellPadding, left: cellPadding, bottom: 0, right: cellPadding)
+    }
 }
 
 

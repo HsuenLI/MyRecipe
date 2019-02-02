@@ -29,21 +29,25 @@ class DetailsController : UICollectionViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        setupNavigation()
+        setupCollectionView()
+        ingredient = products.ingredient
+        steps = products.step
+    }
+    
+    fileprivate func setupNavigation(){
         navigationController?.hidesBarsOnSwipe = false
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.title = products.title
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.customTextColor()]
+    }
+    
+    fileprivate func setupCollectionView(){
         collectionView.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
         collectionView.register(DetailHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         collectionView.register(IngredientCell.self, forCellWithReuseIdentifier: ingredientCellId)
         collectionView.register(StepsCell.self, forCellWithReuseIdentifier: stepsCellId)
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout{
-            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 2*cellPadding, right: 0)
-        }
-
-        collectionView.contentInset = UIEdgeInsets(top: cellPadding, left: cellPadding, bottom: 0, right: cellPadding)
-        ingredient = products.ingredient
-        steps = products.step
+        collectionView.customCollectionViewLayout(cellPadding: cellPadding)
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {

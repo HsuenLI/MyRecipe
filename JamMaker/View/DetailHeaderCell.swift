@@ -32,7 +32,11 @@ class DetailHeaderCell : UICollectionReusableView{
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.rgb(red: 240, green: 96, blue: 98)
-        
+        setupView()
+        roundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 10)
+    }
+    
+    func setupView(){
         addSubview(titleLabel)
         addSubview(arrowButton)
         
@@ -41,7 +45,6 @@ class DetailHeaderCell : UICollectionReusableView{
         
         arrowButton.anchor(top: nil, left: nil, bottom: nil, right: safeAreaLayoutGuide.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 44, height: 44)
         arrowButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        roundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 10)
     }
     
     

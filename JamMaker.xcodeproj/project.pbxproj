@@ -18,6 +18,8 @@
 		CF93896F21FDC3E400090DAF /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93896E21FDC3E400090DAF /* Extension.swift */; };
 		CF93897121FDCBAF00090DAF /* HomeMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */; };
 		CF93899821FE13F100090DAF /* DetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93899721FE13F100090DAF /* DetailsController.swift */; };
+		CFBDB7902204D2C400DA723B /* NewItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB78F2204D2C400DA723B /* NewItemController.swift */; };
+		CFBDB7922204DD2500DA723B /* NewItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB7912204DD2500DA723B /* NewItemHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		CF93896E21FDC3E400090DAF /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuCell.swift; sourceTree = "<group>"; };
 		CF93899721FE13F100090DAF /* DetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsController.swift; sourceTree = "<group>"; };
+		CFBDB78F2204D2C400DA723B /* NewItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemController.swift; sourceTree = "<group>"; };
+		CFBDB7912204DD2500DA723B /* NewItemHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 				CF14D6F12201E6B0006B055B /* StepsCell.swift */,
 				CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */,
 				CF14D6ED21FF5E60006B055B /* DetailHeaderCell.swift */,
+				CFBDB7912204DD2500DA723B /* NewItemHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -63,6 +68,7 @@
 			children = (
 				CF93895B21FDB7AB00090DAF /* HomeController.swift */,
 				CF93899721FE13F100090DAF /* DetailsController.swift */,
+				CFBDB78F2204D2C400DA723B /* NewItemController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -173,8 +179,10 @@
 				CF14D6F021FF68BA006B055B /* IngredientCell.swift in Sources */,
 				CF93896221FDB7AB00090DAF /* JamMaker.xcdatamodeld in Sources */,
 				CF14D6F22201E6B0006B055B /* StepsCell.swift in Sources */,
+				CFBDB7922204DD2500DA723B /* NewItemHeader.swift in Sources */,
 				CF93895A21FDB7AB00090DAF /* AppDelegate.swift in Sources */,
 				CF14D6EE21FF5E60006B055B /* DetailHeaderCell.swift in Sources */,
+				CFBDB7902204D2C400DA723B /* NewItemController.swift in Sources */,
 				CF93899821FE13F100090DAF /* DetailsController.swift in Sources */,
 				CF93896F21FDC3E400090DAF /* Extension.swift in Sources */,
 			);
