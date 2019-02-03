@@ -10,6 +10,13 @@ import UIKit
 
 class IngredientCell : UICollectionViewCell {
     
+    var ingredient : Ingredient?{
+        didSet{
+            titleLabel.text = ingredient?.name
+            inputLabel.text = ingredient?.input
+        }
+    }
+    
     let titleLabel : UILabel = {
         let label = UILabel()
         label.textColor = .black

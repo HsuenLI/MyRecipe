@@ -18,11 +18,14 @@ class NewItemHeader : DetailHeaderCell {
         return button
     }()
     
+    var newItemController = NewItemController()
+    
     override func setupView() {
         addSubview(titleLabel)
         titleLabel.anchor(top: nil, left: safeAreaLayoutGuide.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 200, height: 0)
         titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         addSubview(addButton)
-        addButton.anchor(top: nil, left: nil, bottom: bottomAnchor, right: safeAreaLayoutGuide.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 44, height: 44)
+        addButton.anchor(top: nil, left: nil, bottom: nil, right: safeAreaLayoutGuide.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 44, height: 44)
+        addButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 }
