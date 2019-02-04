@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddNewIngredientView : UIView{
+class AddNewIngredientView : UIView, UITextViewDelegate, UITextFieldDelegate{
     
     let spacing : CGFloat = 40
     var newItemController = NewItemController()
@@ -35,13 +35,18 @@ class AddNewIngredientView : UIView{
         tv.layer.masksToBounds = true
         tv.layer.borderWidth = 0.3
         tv.layer.borderColor = UIColor(white: 0, alpha: 0.3).cgColor
-        //tv.delegate = self
+        tv.delegate = self
+        tv.returnKeyType = .done
         return tv
     }()
     
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//        handleTextInput()
-//    }
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n"{
+            textView.resignFirstResponder()
+        }
+        handleTextInput()
+        return true
+    }
 
     let itemAmountLabel : UILabel = {
         let label = UILabel()
@@ -55,27 +60,31 @@ class AddNewIngredientView : UIView{
         tf.font = UIFont.systemFont(ofSize: 18)
         tf.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
         tf.borderStyle = .roundedRect
-        //tf.addTarget(self, action: #selector(handleTextInput), for: .touchUpInside)
+        tf.returnKeyType = .done
+        tf.delegate = self
+        tf.addTarget(self, action: #selector(handleTextInput), for: .editingChanged)
         return tf
     }()
     
-//    @objc func handleTextInput(){
-//        let isFormValidate = itemAmountTextField.text?.count ?? 0 > 0 && itemTitleTextView.text.count > 0
-//        if isFormValidate{
-//            addButton.isEnabled = true
-//            addButton.backgroundColor = UIColor.rgb(red: 240, green: 98, blue: 96)
-//        }else{
-//            addButton.isEnabled = false
-//            addButton.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
-//        }
-//    }
+    
+    @objc func handleTextInput(){
+        let isFormValidate = itemAmountTextField.text?.count ?? 0 > 0 && itemTitleTextView.text.count > 0
+        if isFormValidate{
+            addButton.isEnabled = true
+            addButton.backgroundColor = UIColor.rgb(red: 240, green: 98, blue: 96)
+        }else{
+            addButton.isEnabled = false
+            addButton.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+        }
+    }
+    
     let addButton : UIButton = {
         let button = UIButton(type: .system)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Add", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.backgroundColor = UIColor.rgb(red: 240, green: 98, blue: 96)
-        //button.isEnabled = false
+        button.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+        button.isEnabled = false
         return button
     }()
     

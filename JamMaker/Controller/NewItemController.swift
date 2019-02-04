@@ -15,7 +15,12 @@ class NewItemController : UICollectionViewController{
     let stepCellId = "stepCellId"
     let cellPadding : CGFloat = 8
     let productInstructionTitle = ["Ingredient", "Steps"]
+    var ingredients = [Ingredient]()
+    var steps = [Steps]()
+    
+    //MARK : Blank view
     let blankWindow = UIView()
+    let imagePicker = UIImagePickerController()
     let crossButton : UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "cross_icon")?.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -47,8 +52,7 @@ class NewItemController : UICollectionViewController{
         return view
     }()
     
-    var ingredients = [Ingredient]()
-    let imagePicker = UIImagePickerController()
+    //MARK : Top Item Image
     let itemHeaderImageButton : UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "photo")?.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -59,7 +63,6 @@ class NewItemController : UICollectionViewController{
         button.layer.borderWidth = 0.5
         return button
     }()
-    
     @objc func handleItemPhoto(){
         let headerImagePicker = UIImagePickerController()
         headerImagePicker.delegate = self
@@ -69,21 +72,19 @@ class NewItemController : UICollectionViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigation()
+        view.addSubview(itemHeaderImageButton)
+        itemHeaderImageButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 195)
+        setupCollectionView()
+    }
+    
+    fileprivate func setupNavigation(){
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Title", style: .plain, target: self, action: #selector(handleAddTitle))
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor : UIColor.customTextColor()]
-        view.addSubview(itemHeaderImageButton)
-        itemHeaderImageButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 195)
-        collectionView.backgroundColor = .white
-        collectionView.register(NewItemHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
-        collectionView.register(IngredientCell.self, forCellWithReuseIdentifier: ingredientCellId)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: stepCellId)
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout{
-            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 2*cellPadding, right: 0)
-        }
-        collectionView.contentInset = UIEdgeInsets(top: 200, left: cellPadding, bottom: 0, right: cellPadding)
     }
     
+    //Add Navigation title for item name
     @objc func handleAddTitle(){
         let alert = UIAlertController(title: "Set item title", message: nil, preferredStyle: .alert)
         var inputTextfield : UITextField?
@@ -97,6 +98,17 @@ class NewItemController : UICollectionViewController{
         alert.addAction(cancelAction)
         alert.addAction(addAction)
         present(alert,animated: true)
+    }
+    
+    fileprivate func setupCollectionView(){
+        collectionView.backgroundColor = .white
+        collectionView.register(NewItemHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
+        collectionView.register(IngredientCell.self, forCellWithReuseIdentifier: ingredientCellId)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: stepCellId)
+        if let layout = collectionViewLayout as? UICollectionViewFlowLayout{
+            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 2*cellPadding, right: 0)
+        }
+        collectionView.contentInset = UIEdgeInsets(top: 200, left: cellPadding, bottom: 0, right: cellPadding)
     }
     
 }
@@ -169,14 +181,15 @@ extension NewItemController{
         if let window = UIApplication.shared.keyWindow{
             blankWindow.backgroundColor = UIColor(white: 0, alpha: 0.7)
             window.addSubview(blankWindow)
+            blankWindow.addSubview(crossButton)
+            crossButton.anchor(top: blankWindow.topAnchor, left: nil, bottom: nil, right: blankWindow.rightAnchor, paddingTop: 50, paddingLeft: 0, paddingBottom: 0, paddingRight: 20, width: 44, height: 44)
+            crossButton.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+            
             blankWindow.frame = window.frame
             if section == 0{
                 newIngredientView.itemTitleTextView.text = ""
                 newIngredientView.itemAmountTextField.text = ""
                 blankWindow.addSubview(newIngredientView)
-                blankWindow.addSubview(crossButton)
-                crossButton.anchor(top: blankWindow.topAnchor, left: nil, bottom: nil, right: blankWindow.rightAnchor, paddingTop: 50, paddingLeft: 0, paddingBottom: 0, paddingRight: 20, width: 44, height: 44)
-                crossButton.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
                 newIngredientView.anchor(top: nil, left: blankWindow.leftAnchor, bottom: nil, right: blankWindow.rightAnchor, paddingTop: 0, paddingLeft: 5, paddingBottom: 0, paddingRight: 5, width: 0, height: 216)
                 newIngredientView.centerYAnchor.constraint(equalTo: blankWindow.centerYAnchor).isActive = true
             }else{
@@ -224,18 +237,11 @@ extension NewItemController : UIImagePickerControllerDelegate, UINavigationContr
     
     @objc func handleAddButton(button : UIButton){
         if button.tag == 0{
-            let ingredientName = newIngredientView.itemTitleTextView.text
-            let inputAmount = newIngredientView.itemAmountTextField.text
-            if ingredientName?.count ?? 0 > 0 && inputAmount?.count ?? 0 > 0{
-                newIngredientView.itemTitleTextView.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
-                newIngredientView.itemAmountTextField.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+            guard let ingredientName = newIngredientView.itemTitleTextView.text else {return}
+            guard let inputAmount = newIngredientView.itemAmountTextField.text else {return}
                 
-                let ingredient = Ingredient(name: ingredientName!, input: inputAmount!)
-                ingredients.append(ingredient)
-            }else{
-                newIngredientView.itemTitleTextView.backgroundColor = UIColor.red.withAlphaComponent(0.2)
-                newIngredientView.itemAmountTextField.backgroundColor = UIColor.red.withAlphaComponent(0.2)
-            }
+            let ingredient = Ingredient(name: ingredientName, input: inputAmount)
+            ingredients.append(ingredient)
         }else{
             
         }

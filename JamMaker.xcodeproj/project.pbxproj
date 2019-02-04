@@ -22,7 +22,6 @@
 		CFBDB7922204DD2500DA723B /* NewItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB7912204DD2500DA723B /* NewItemHeader.swift */; };
 		CFBDB79422056AC000DA723B /* AddNewIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB79322056AC000DA723B /* AddNewIngredientView.swift */; };
 		CFBDB7962205BB1E00DA723B /* AddNewStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB7952205BB1E00DA723B /* AddNewStepView.swift */; };
-		CFBDB79822074EF200DA723B /* AddItemPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB79722074EF200DA723B /* AddItemPopupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +42,6 @@
 		CFBDB7912204DD2500DA723B /* NewItemHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemHeader.swift; sourceTree = "<group>"; };
 		CFBDB79322056AC000DA723B /* AddNewIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewIngredientView.swift; sourceTree = "<group>"; };
 		CFBDB7952205BB1E00DA723B /* AddNewStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewStepView.swift; sourceTree = "<group>"; };
-		CFBDB79722074EF200DA723B /* AddItemPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemPopupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,14 +58,11 @@
 		CF14D6F32201FC2C006B055B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CFBDB79922075A7700DA723B /* NewItem */,
 				CF14D6EF21FF68BA006B055B /* IngredientCell.swift */,
 				CF14D6F12201E6B0006B055B /* StepsCell.swift */,
 				CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */,
 				CF14D6ED21FF5E60006B055B /* DetailHeaderCell.swift */,
-				CFBDB7912204DD2500DA723B /* NewItemHeader.swift */,
-				CFBDB79322056AC000DA723B /* AddNewIngredientView.swift */,
-				CFBDB7952205BB1E00DA723B /* AddNewStepView.swift */,
-				CFBDB79722074EF200DA723B /* AddItemPopupView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -111,6 +106,16 @@
 				CF93896E21FDC3E400090DAF /* Extension.swift */,
 			);
 			path = JamMaker;
+			sourceTree = "<group>";
+		};
+		CFBDB79922075A7700DA723B /* NewItem */ = {
+			isa = PBXGroup;
+			children = (
+				CFBDB7912204DD2500DA723B /* NewItemHeader.swift */,
+				CFBDB79322056AC000DA723B /* AddNewIngredientView.swift */,
+				CFBDB7952205BB1E00DA723B /* AddNewStepView.swift */,
+			);
+			path = NewItem;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,7 +198,6 @@
 				CFBDB7922204DD2500DA723B /* NewItemHeader.swift in Sources */,
 				CF93895A21FDB7AB00090DAF /* AppDelegate.swift in Sources */,
 				CF14D6EE21FF5E60006B055B /* DetailHeaderCell.swift in Sources */,
-				CFBDB79822074EF200DA723B /* AddItemPopupView.swift in Sources */,
 				CFBDB7902204D2C400DA723B /* NewItemController.swift in Sources */,
 				CF93899821FE13F100090DAF /* DetailsController.swift in Sources */,
 				CF93896F21FDC3E400090DAF /* Extension.swift in Sources */,
