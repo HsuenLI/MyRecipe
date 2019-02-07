@@ -10,6 +10,16 @@ import UIKit
 
 class StepsCell : UICollectionViewCell {
     
+    var step : Steps?{
+        didSet{
+            guard let count = step?.step else {return}
+            guard let name = step?.name else {return}
+            titleLabel.text = "\(count). \(name)"
+            guard let image = step?.photoImage else {return}
+            photoImageView.image = image
+        }
+    }
+    
     let titleLabel : UILabel = {
         let label = UILabel()
         label.textColor = .black

@@ -16,7 +16,7 @@ class DetailsController : UICollectionViewController {
     let cellPadding : CGFloat = 8
     let productInstructionTitle = ["Ingredient", "Steps"]
     
-    var products = Prodcuts(isIngredientExpandable: false, isStepExpandable: false, title: "Kiwi Jam", ingredients: [Ingredient(name: "kiwi", input: "180g"), Ingredient(name: "sugar", input: "180g"),Ingredient(name: "lemon juice", input: "2tp")], steps: [Steps(step: 1, name: "Cut to slice", photoImage: "kiwi"), Steps(step: 2, name: "Fill lemon juice and sugar", photoImage: "kiwi"), Steps(step: 3, name: "Waiting around 5 minutes", photoImage: "kiwi"), Steps(step: 4, name: "Put in container for one day", photoImage: "kiwi")])
+    var products = Prodcuts(isIngredientExpandable: false, isStepExpandable: false, title: "Kiwi Jam", ingredients: [Ingredient(name: "kiwi", input: "180g"), Ingredient(name: "sugar", input: "180g"),Ingredient(name: "lemon juice", input: "2tp")], steps: [Steps(step: 1, name: "Cut to slice", photoImage: UIImage(named: "kiwi")!), Steps(step: 2, name: "Fill lemon juice and sugar", photoImage: UIImage(named: "kiwi")!), Steps(step: 3, name: "Waiting around 5 minutes", photoImage: UIImage(named: "kiwi")!), Steps(step: 4, name: "Put in container for one day", photoImage: UIImage(named: "kiwi")!)])
     
     var ingredient = [Ingredient]()
     var steps = [Steps]()
@@ -167,9 +167,9 @@ struct Ingredient{
 struct Steps{
     let step : Int
     let name : String
-    let photoImage : String
+    let photoImage : UIImage?
     
-    init(step: Int, name : String , photoImage : String){
+    init(step: Int, name : String , photoImage : UIImage?){
         self.step = step
         self.name = name
         self.photoImage = photoImage

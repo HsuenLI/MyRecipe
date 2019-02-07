@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddNewStepView : UIView{
+class AddNewStepView : UIView, UITextViewDelegate{
     
     let titleSpacing : CGFloat = 40
     var newItemController = NewItemController()
@@ -23,11 +23,11 @@ class AddNewStepView : UIView{
     }()
     let itemTitleLabel : UILabel = {
         let label = UILabel()
-        label.text = "Discription:"
+        label.text = "Description:"
         label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
-    let itemDescritionTextView : UITextView = {
+    lazy var itemDescritionTextView : UITextView = {
         let tv = UITextView()
         tv.font = UIFont.systemFont(ofSize: 18)
         tv.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
@@ -35,8 +35,30 @@ class AddNewStepView : UIView{
         tv.layer.masksToBounds = true
         tv.layer.borderWidth = 0.3
         tv.layer.borderColor = UIColor(white: 0, alpha: 0.3).cgColor
+        tv.delegate = self
+        tv.returnKeyType = .done
         return tv
     }()
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n"{
+            textView.resignFirstResponder()
+        }
+        handleTextInput()
+        return true
+    }
+    
+    @objc func handleTextInput(){
+        let isFormValidate = itemDescritionTextView.text.count > 0
+        if isFormValidate{
+            addButton.isEnabled = true
+            addButton.backgroundColor = UIColor.rgb(red: 240, green: 98, blue: 96)
+        }else{
+            addButton.isEnabled = false
+            addButton.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+        }
+    }
+    
     let itemPhotoImageLabel : UILabel = {
         let label = UILabel()
         label.text = "Photo:"

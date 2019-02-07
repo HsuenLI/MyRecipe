@@ -17,6 +17,7 @@ class NewItemController : UICollectionViewController{
     let productInstructionTitle = ["Ingredient", "Steps"]
     var ingredients = [Ingredient]()
     var steps = [Steps]()
+    var stepsCellHeight : CGFloat = 0
     
     //MARK : Blank view
     let blankWindow = UIView()
@@ -104,13 +105,24 @@ class NewItemController : UICollectionViewController{
         collectionView.backgroundColor = .white
         collectionView.register(NewItemHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         collectionView.register(IngredientCell.self, forCellWithReuseIdentifier: ingredientCellId)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: stepCellId)
+        collectionView.register(StepsCell.self, forCellWithReuseIdentifier: stepCellId)
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout{
             layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 2*cellPadding, right: 0)
         }
         collectionView.contentInset = UIEdgeInsets(top: 200, left: cellPadding, bottom: 0, right: cellPadding)
     }
     
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffsetY = collectionView.contentOffset.y
+        print(contentOffsetY)
+        if contentOffsetY > -200{
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+                self.itemHeaderImageButton.isHidden = true
+            }, completion: nil)
+        }else if contentOffsetY <= -200{
+            itemHeaderImageButton.isHidden = false
+        }
+    }
 }
 
 extension NewItemController : UICollectionViewDelegateFlowLayout{
@@ -136,7 +148,7 @@ extension NewItemController : UICollectionViewDelegateFlowLayout{
         if section == 0{
             return ingredients.count
         }else{
-            return 5
+            return steps.count
         }
     }
     
@@ -146,14 +158,21 @@ extension NewItemController : UICollectionViewDelegateFlowLayout{
             cell.ingredient = ingredients[indexPath.item]
             return cell
         }else{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: stepCellId, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: stepCellId, for: indexPath) as! StepsCell
+            cell.step = steps[indexPath.item]
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width - (2*cellPadding)
-        return CGSize(width: width, height: 40)
+        if indexPath.section == 0 {
+            return CGSize(width: width, height: 40)
+        }else{
+            stepsCellHeight = 4 + 80 + 4 + (width * 0.8) + 5
+            return CGSize(width: width, height: stepsCellHeight)
+        }
+
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -193,6 +212,8 @@ extension NewItemController{
                 newIngredientView.anchor(top: nil, left: blankWindow.leftAnchor, bottom: nil, right: blankWindow.rightAnchor, paddingTop: 0, paddingLeft: 5, paddingBottom: 0, paddingRight: 5, width: 0, height: 216)
                 newIngredientView.centerYAnchor.constraint(equalTo: blankWindow.centerYAnchor).isActive = true
             }else{
+                newStepView.itemDescritionTextView.text = ""
+                newStepView.photoImageButton.setImage(UIImage(named: "photo"), for: .normal)
                 blankWindow.addSubview(newStepView)
                 newStepView.anchor(top: nil, left: blankWindow.leftAnchor, bottom: nil, right: blankWindow.rightAnchor, paddingTop: 0, paddingLeft: 5, paddingBottom: 0, paddingRight: 5, width: 0, height: 550)
                 newStepView.centerYAnchor.constraint(equalTo: blankWindow.centerYAnchor).isActive = true
@@ -221,17 +242,18 @@ extension NewItemController : UIImagePickerControllerDelegate, UINavigationContr
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
             if picker == imagePicker{
                 newStepView.photoImageButton.setImage(editedImage.withRenderingMode(.alwaysOriginal), for: .normal)
+                blankWindow.alpha = 1
             }else{
                 itemHeaderImageButton.setImage(editedImage.withRenderingMode(.alwaysOriginal), for: .normal)
             }
         }else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             if picker == imagePicker{
                 newStepView.photoImageButton.setImage(originalImage.withRenderingMode(.alwaysOriginal), for: .normal)
+                blankWindow.alpha = 1
             }else{
                 itemHeaderImageButton.setImage(originalImage.withRenderingMode(.alwaysOriginal), for: .normal)
             }
         }
-        blankWindow.alpha = 1
         dismiss(animated: true, completion: nil)
     }
     
@@ -243,7 +265,19 @@ extension NewItemController : UIImagePickerControllerDelegate, UINavigationContr
             let ingredient = Ingredient(name: ingredientName, input: inputAmount)
             ingredients.append(ingredient)
         }else{
-            
+            guard let stepName = newStepView.itemDescritionTextView.text else {return}
+            guard let image = newStepView.photoImageButton.currentImage else {return}
+            let count = steps.count + 1
+            let step : Steps
+            if image != UIImage(named: "photo"){
+                step = Steps(step: count, name: stepName, photoImage: image)
+                let width = collectionView.frame.width - (2*cellPadding)
+                stepsCellHeight = 4 + 80 + 4 + (width * 0.8) + 5
+            }else{
+                stepsCellHeight = 40
+                step = Steps(step: count, name: stepName, photoImage: nil)
+            }
+            steps.append(step)
         }
         blankWindow.alpha = 0
         collectionView.reloadData()
