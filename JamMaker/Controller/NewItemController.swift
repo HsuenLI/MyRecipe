@@ -14,10 +14,12 @@ class NewItemController : UICollectionViewController{
     let ingredientCellId = "ingredientCellId"
     let stepCellId = "stepCellId"
     let cellPadding : CGFloat = 8
-    let productInstructionTitle = ["Ingredient", "Steps"]
+    let productInstructionTitle = ["Ingredients", "Steps"]
     var ingredients = [Ingredient]()
     var steps = [Steps]()
     var stepsCellHeight : CGFloat = 0
+    
+    let gearView = GearView()
     
     //MARK : Blank view
     let blankWindow = UIView()
@@ -77,28 +79,47 @@ class NewItemController : UICollectionViewController{
         view.addSubview(itemHeaderImageButton)
         itemHeaderImageButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 195)
         setupCollectionView()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureView))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        gearView.removeFromSuperview()
+    }
+    
+    @objc func handleTapGestureView(){
+        gearView.removeFromSuperview()
     }
     
     fileprivate func setupNavigation(){
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Title", style: .plain, target: self, action: #selector(handleAddTitle))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "gear"), style: .plain, target: self, action: #selector(handleAddTitleAndSave))
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor : UIColor.customTextColor()]
     }
     
     //Add Navigation title for item name
-    @objc func handleAddTitle(){
-        let alert = UIAlertController(title: "Set item title", message: nil, preferredStyle: .alert)
-        var inputTextfield : UITextField?
-        alert.addTextField { (textfield) in
-            inputTextfield = textfield
+    @objc func handleAddTitleAndSave(){
+        if let window = UIApplication.shared.keyWindow{
+            window.addSubview(gearView)
+            gearView.anchor(top: window.topAnchor, left: nil, bottom: nil, right: window.rightAnchor, paddingTop: 90, paddingLeft: 0, paddingBottom: 0, paddingRight: 30, width: 100, height: 80.5)
+            gearView.addTitleButton.addTarget(self, action: #selector(handleNavigationTitle), for: .touchUpInside)
         }
-        let addAction = UIAlertAction(title: "Add", style: .default, handler: { (action) in
-            self.navigationItem.title = inputTextfield?.text ?? ""
-        })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
-        alert.addAction(cancelAction)
-        alert.addAction(addAction)
-        present(alert,animated: true)
+    }
+    
+    @objc func handleNavigationTitle(){
+            let alert = UIAlertController(title: "Set item title", message: nil, preferredStyle: .alert)
+            var inputTextfield : UITextField?
+            alert.addTextField { (textfield) in
+                inputTextfield = textfield
+            }
+            let addAction = UIAlertAction(title: "Add", style: .default, handler: { (action) in
+                self.navigationItem.title = inputTextfield?.text ?? ""
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+            alert.addAction(cancelAction)
+            alert.addAction(addAction)
+            present(alert,animated: true)
     }
     
     fileprivate func setupCollectionView(){

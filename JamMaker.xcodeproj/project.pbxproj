@@ -22,6 +22,7 @@
 		CFBDB7922204DD2500DA723B /* NewItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB7912204DD2500DA723B /* NewItemHeader.swift */; };
 		CFBDB79422056AC000DA723B /* AddNewIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB79322056AC000DA723B /* AddNewIngredientView.swift */; };
 		CFBDB7962205BB1E00DA723B /* AddNewStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB7952205BB1E00DA723B /* AddNewStepView.swift */; };
+		CFF7AC01220C9E9300706D28 /* GearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7AC00220C9E9300706D28 /* GearView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		CFBDB7912204DD2500DA723B /* NewItemHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemHeader.swift; sourceTree = "<group>"; };
 		CFBDB79322056AC000DA723B /* AddNewIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewIngredientView.swift; sourceTree = "<group>"; };
 		CFBDB7952205BB1E00DA723B /* AddNewStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewStepView.swift; sourceTree = "<group>"; };
+		CFF7AC00220C9E9300706D28 /* GearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				CFBDB7912204DD2500DA723B /* NewItemHeader.swift */,
 				CFBDB79322056AC000DA723B /* AddNewIngredientView.swift */,
 				CFBDB7952205BB1E00DA723B /* AddNewStepView.swift */,
+				CFF7AC00220C9E9300706D28 /* GearView.swift */,
 			);
 			path = NewItem;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				CF93895C21FDB7AB00090DAF /* HomeController.swift in Sources */,
 				CF93897121FDCBAF00090DAF /* HomeMenuCell.swift in Sources */,
 				CF14D6F021FF68BA006B055B /* IngredientCell.swift in Sources */,
+				CFF7AC01220C9E9300706D28 /* GearView.swift in Sources */,
 				CF93896221FDB7AB00090DAF /* JamMaker.xcdatamodeld in Sources */,
 				CFBDB79422056AC000DA723B /* AddNewIngredientView.swift in Sources */,
 				CFBDB7962205BB1E00DA723B /* AddNewStepView.swift in Sources */,
