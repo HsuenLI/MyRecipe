@@ -29,7 +29,7 @@
 		CF14D6ED21FF5E60006B055B /* DetailHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderCell.swift; sourceTree = "<group>"; };
 		CF14D6EF21FF68BA006B055B /* IngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
 		CF14D6F12201E6B0006B055B /* StepsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsCell.swift; sourceTree = "<group>"; };
-		CF93895621FDB7AB00090DAF /* JamMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JamMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF93895621FDB7AB00090DAF /* MyRecipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyRecipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF93895921FDB7AB00090DAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF93895B21FDB7AB00090DAF /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		CF93896121FDB7AB00090DAF /* JamMaker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JamMaker.xcdatamodel; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		CF93894D21FDB7AB00090DAF = {
 			isa = PBXGroup;
 			children = (
-				CF93895821FDB7AB00090DAF /* JamMaker */,
+				CF93895821FDB7AB00090DAF /* MyRecipe */,
 				CF93895721FDB7AB00090DAF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,12 +88,12 @@
 		CF93895721FDB7AB00090DAF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CF93895621FDB7AB00090DAF /* JamMaker.app */,
+				CF93895621FDB7AB00090DAF /* MyRecipe.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CF93895821FDB7AB00090DAF /* JamMaker */ = {
+		CF93895821FDB7AB00090DAF /* MyRecipe */ = {
 			isa = PBXGroup;
 			children = (
 				CF14D6F42201FC46006B055B /* Controller */,
@@ -105,7 +105,7 @@
 				CF93896021FDB7AB00090DAF /* JamMaker.xcdatamodeld */,
 				CF93896E21FDC3E400090DAF /* Extension.swift */,
 			);
-			path = JamMaker;
+			path = MyRecipe;
 			sourceTree = "<group>";
 		};
 		CFBDB79922075A7700DA723B /* NewItem */ = {
@@ -132,9 +132,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CF93895521FDB7AB00090DAF /* JamMaker */ = {
+		CF93895521FDB7AB00090DAF /* MyRecipe */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CF93896B21FDB7AC00090DAF /* Build configuration list for PBXNativeTarget "JamMaker" */;
+			buildConfigurationList = CF93896B21FDB7AC00090DAF /* Build configuration list for PBXNativeTarget "MyRecipe" */;
 			buildPhases = (
 				CF93895221FDB7AB00090DAF /* Sources */,
 				CF93895321FDB7AB00090DAF /* Frameworks */,
@@ -144,9 +144,9 @@
 			);
 			dependencies = (
 			);
-			name = JamMaker;
+			name = MyRecipe;
 			productName = JamMaker;
-			productReference = CF93895621FDB7AB00090DAF /* JamMaker.app */;
+			productReference = CF93895621FDB7AB00090DAF /* MyRecipe.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -164,7 +164,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CF93895121FDB7AB00090DAF /* Build configuration list for PBXProject "JamMaker" */;
+			buildConfigurationList = CF93895121FDB7AB00090DAF /* Build configuration list for PBXProject "MyRecipe" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -177,7 +177,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CF93895521FDB7AB00090DAF /* JamMaker */,
+				CF93895521FDB7AB00090DAF /* MyRecipe */,
 			);
 		};
 /* End PBXProject section */
@@ -352,12 +352,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SUZY35U5GK;
-				INFOPLIST_FILE = JamMaker/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MyRecipe/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.HsuenJuLi.JamMaker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HsuenJuLi.MyRecipe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -370,12 +370,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SUZY35U5GK;
-				INFOPLIST_FILE = JamMaker/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MyRecipe/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.HsuenJuLi.JamMaker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HsuenJuLi.MyRecipe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -385,7 +385,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CF93895121FDB7AB00090DAF /* Build configuration list for PBXProject "JamMaker" */ = {
+		CF93895121FDB7AB00090DAF /* Build configuration list for PBXProject "MyRecipe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CF93896921FDB7AC00090DAF /* Debug */,
@@ -394,7 +394,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CF93896B21FDB7AC00090DAF /* Build configuration list for PBXNativeTarget "JamMaker" */ = {
+		CF93896B21FDB7AC00090DAF /* Build configuration list for PBXNativeTarget "MyRecipe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CF93896C21FDB7AC00090DAF /* Debug */,
