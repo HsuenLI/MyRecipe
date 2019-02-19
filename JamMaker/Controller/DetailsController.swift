@@ -30,6 +30,10 @@ class DetailsController : UICollectionViewController {
         super.viewDidLoad()
         setupNavigation()
         setupCollectionView()
+        fetchProductDetails()
+    }
+    
+    fileprivate func fetchProductDetails(){
         guard let selectedProduct = selectedProduct else {return}
         
         for ingredient in selectedProduct.ingredients!{
@@ -39,8 +43,6 @@ class DetailsController : UICollectionViewController {
         for step in selectedProduct.steps!{
             steps.append(step as! Step)
         }
-        //ingredients = selectedProduct.ingredients
-        //steps = selectedProduct.steps
     }
     
     fileprivate func setupNavigation(){
