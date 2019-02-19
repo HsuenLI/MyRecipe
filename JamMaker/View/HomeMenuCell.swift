@@ -10,18 +10,18 @@ import UIKit
 
 class HomeMenuCell : CustomCell {
     
-    var item : Item?{
+    var product : Product?{
         didSet{
-            guard let image = item?.image else {return}
-            imageView.image = UIImage(named: image)
+            guard let image = product?.image else {return}
+            imageView.image = UIImage(data: image)
             
-            titleLabel.text = item?.title
+            titleLabel.text = product?.title
         }
     }
     
     let imageView : UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .blue
+        iv.backgroundColor = .white
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         return iv

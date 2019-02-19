@@ -7,18 +7,23 @@
 //
 
 import UIKit
+import CoreData
 
 class NewItemController : UICollectionViewController{
     
+    static let notificationUpdateHome = NSNotification.Name(rawValue: "updateHomeFeed")
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let headerId = "headerId"
     let ingredientCellId = "ingredientCellId"
     let stepCellId = "stepCellId"
     let cellPadding : CGFloat = 8
     let productInstructionTitle = ["Ingredients", "Steps"]
+    var product : Product?
     var ingredients = [Ingredient]()
-    var steps = [Steps]()
+    var steps = [Step]()
     var stepsCellHeight : CGFloat = 0
-    
+    var productTitle = ""
     let gearView = GearView()
     
     //MARK : Blank view
@@ -56,7 +61,7 @@ class NewItemController : UICollectionViewController{
     }()
     
     //MARK : Top Item Image
-    let itemHeaderImageButton : UIButton = {
+    let productCoverImageButton : UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "photo")?.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(handleItemPhoto), for: .touchUpInside)
@@ -66,6 +71,7 @@ class NewItemController : UICollectionViewController{
         button.layer.borderWidth = 0.5
         return button
     }()
+    
     @objc func handleItemPhoto(){
         let headerImagePicker = UIImagePickerController()
         headerImagePicker.delegate = self
@@ -76,8 +82,8 @@ class NewItemController : UICollectionViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
-        view.addSubview(itemHeaderImageButton)
-        itemHeaderImageButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 195)
+        view.addSubview(productCoverImageButton)
+        productCoverImageButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 195)
         setupCollectionView()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureView))
         view.addGestureRecognizer(tapGesture)
@@ -104,6 +110,7 @@ class NewItemController : UICollectionViewController{
             window.addSubview(gearView)
             gearView.anchor(top: window.topAnchor, left: nil, bottom: nil, right: window.rightAnchor, paddingTop: 90, paddingLeft: 0, paddingBottom: 0, paddingRight: 30, width: 100, height: 80.5)
             gearView.addTitleButton.addTarget(self, action: #selector(handleNavigationTitle), for: .touchUpInside)
+            gearView.saveButton.addTarget(self, action: #selector(handleSavePressed), for: .touchUpInside)
         }
     }
     
@@ -115,11 +122,32 @@ class NewItemController : UICollectionViewController{
             }
             let addAction = UIAlertAction(title: "Add", style: .default, handler: { (action) in
                 self.navigationItem.title = inputTextfield?.text ?? ""
+                self.productTitle = (inputTextfield?.text)!
             })
             let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
             alert.addAction(cancelAction)
             alert.addAction(addAction)
             present(alert,animated: true)
+    }
+    
+    @objc func handleSavePressed(){
+        let product = Product(context: context)
+        product.title = productTitle
+        product.image = productCoverImageButton.currentImage?.pngData()
+        product.isStepsExpandable = false
+        product.isIngredientExpandable = false
+        
+        for ingredient in ingredients{
+            ingredient.productTitle = product
+        }
+        
+        for step in steps{
+            step.productTitle = product
+        }
+        
+        NotificationCenter.default.post(name: NewItemController.notificationUpdateHome, object: nil)
+        saveProdcut()
+        navigationController?.popToRootViewController(animated: true)
     }
     
     fileprivate func setupCollectionView(){
@@ -138,10 +166,10 @@ class NewItemController : UICollectionViewController{
         print(contentOffsetY)
         if contentOffsetY > -200{
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
-                self.itemHeaderImageButton.isHidden = true
+                self.productCoverImageButton.isHidden = true
             }, completion: nil)
         }else if contentOffsetY <= -200{
-            itemHeaderImageButton.isHidden = false
+            productCoverImageButton.isHidden = false
         }
     }
 }
@@ -265,14 +293,14 @@ extension NewItemController : UIImagePickerControllerDelegate, UINavigationContr
                 newStepView.photoImageButton.setImage(editedImage.withRenderingMode(.alwaysOriginal), for: .normal)
                 blankWindow.alpha = 1
             }else{
-                itemHeaderImageButton.setImage(editedImage.withRenderingMode(.alwaysOriginal), for: .normal)
+                productCoverImageButton.setImage(editedImage.withRenderingMode(.alwaysOriginal), for: .normal)
             }
         }else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             if picker == imagePicker{
                 newStepView.photoImageButton.setImage(originalImage.withRenderingMode(.alwaysOriginal), for: .normal)
                 blankWindow.alpha = 1
             }else{
-                itemHeaderImageButton.setImage(originalImage.withRenderingMode(.alwaysOriginal), for: .normal)
+                productCoverImageButton.setImage(originalImage.withRenderingMode(.alwaysOriginal), for: .normal)
             }
         }
         dismiss(animated: true, completion: nil)
@@ -282,25 +310,37 @@ extension NewItemController : UIImagePickerControllerDelegate, UINavigationContr
         if button.tag == 0{
             guard let ingredientName = newIngredientView.itemTitleTextView.text else {return}
             guard let inputAmount = newIngredientView.itemAmountTextField.text else {return}
-                
-            let ingredient = Ingredient(name: ingredientName, input: inputAmount)
+            let ingredient = Ingredient(context: context)
+            ingredient.name = ingredientName
+            ingredient.input = inputAmount
             ingredients.append(ingredient)
         }else{
             guard let stepName = newStepView.itemDescritionTextView.text else {return}
             guard let image = newStepView.photoImageButton.currentImage else {return}
             let count = steps.count + 1
-            let step : Steps
-            if image != UIImage(named: "photo"){
-                step = Steps(step: count, name: stepName, photoImage: image)
-                let width = collectionView.frame.width - (2*cellPadding)
-                stepsCellHeight = 4 + 80 + 4 + (width * 0.8) + 5
-            }else{
-                stepsCellHeight = 40
-                step = Steps(step: count, name: stepName, photoImage: nil)
-            }
+            let step = Step(context: context)
+            //if image != UIImage(named: "photo"){
+            step.name = stepName
+            step.count = Int32(count)
+            step.image = image.pngData()
+            let width = collectionView.frame.width - (2*cellPadding)
+            stepsCellHeight = 4 + 80 + 4 + (width * 0.8) + 5
+//            }else{
+//                stepsCellHeight = 40
+//                step = Steps(step: count, name: stepName, photoImage: nil)
+//            }
             steps.append(step)
         }
         blankWindow.alpha = 0
         collectionView.reloadData()
     }
+    
+    func saveProdcut(){
+        do{
+            try context.save()
+        }catch let err{
+            print("Failed to save product: ", err)
+        }
+    }
+
 }

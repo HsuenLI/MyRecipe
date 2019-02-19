@@ -15,11 +15,10 @@ class DetailsController : UICollectionViewController {
     let stepsCellId = "stepsCellId"
     let cellPadding : CGFloat = 8
     let productInstructionTitle = ["Ingredient", "Steps"]
+    var selectedProduct : Product?
     
-    var products = Prodcuts(isIngredientExpandable: false, isStepExpandable: false, title: "Kiwi Jam", ingredients: [Ingredient(name: "kiwi", input: "180g"), Ingredient(name: "sugar", input: "180g"),Ingredient(name: "lemon juice", input: "2tp")], steps: [Steps(step: 1, name: "Cut to slice", photoImage: UIImage(named: "kiwi")!), Steps(step: 2, name: "Fill lemon juice and sugar", photoImage: UIImage(named: "kiwi")!), Steps(step: 3, name: "Waiting around 5 minutes", photoImage: UIImage(named: "kiwi")!), Steps(step: 4, name: "Put in container for one day", photoImage: UIImage(named: "kiwi")!)])
-    
-    var ingredient = [Ingredient]()
-    var steps = [Steps]()
+    var ingredients = [Ingredient]()
+    var steps = [Step]()
     
     lazy var detailHeader : DetailHeaderCell = {
         let dh = DetailHeaderCell()
@@ -31,14 +30,23 @@ class DetailsController : UICollectionViewController {
         super.viewDidLoad()
         setupNavigation()
         setupCollectionView()
-        ingredient = products.ingredient
-        steps = products.step
+        guard let selectedProduct = selectedProduct else {return}
+        
+        for ingredient in selectedProduct.ingredients!{
+            ingredients.append(ingredient as! Ingredient)
+        }
+        
+        for step in selectedProduct.steps!{
+            steps.append(step as! Step)
+        }
+        //ingredients = selectedProduct.ingredients
+        //steps = selectedProduct.steps
     }
     
     fileprivate func setupNavigation(){
         navigationController?.hidesBarsOnSwipe = false
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.title = products.title
+        navigationItem.title = selectedProduct?.title
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.customTextColor()]
     }
     
@@ -66,15 +74,16 @@ extension DetailsController : UICollectionViewDelegateFlowLayout{
     }
     
     @objc func buttonPressed(button : UIButton){
+        guard let product = selectedProduct else {return}
         if button.tag == 0 {
             var indexPaths = [IndexPath]()
-            for row in ingredient.indices{
+            for row in ingredients.indices{
                 let indexPath = IndexPath(row: row, section: 0)
                 indexPaths.append(indexPath)
             }
-            products.isIngredientExpandable = !products.isIngredientExpandable
-            button.setImage(products.isIngredientExpandable ? UIImage(named: "arrow_down")?.withRenderingMode(.alwaysOriginal) : UIImage(named: "arrow_up")?.withRenderingMode(.alwaysOriginal), for: .normal)
-            if products.isIngredientExpandable{
+            product.isIngredientExpandable = !product.isIngredientExpandable
+            button.setImage(product.isIngredientExpandable ? UIImage(named: "arrow_down")?.withRenderingMode(.alwaysOriginal) : UIImage(named: "arrow_up")?.withRenderingMode(.alwaysOriginal), for: .normal)
+            if product.isIngredientExpandable{
                 collectionView.deleteItems(at: indexPaths)
             }else{
                 collectionView.insertItems(at: indexPaths)
@@ -86,9 +95,9 @@ extension DetailsController : UICollectionViewDelegateFlowLayout{
                 indexPaths.append(indexPath)
             }
             
-            products.isStepExpandable = !products.isStepExpandable
-            button.setImage(products.isStepExpandable ? UIImage(named: "arrow_down")?.withRenderingMode(.alwaysOriginal) : UIImage(named: "arrow_up")?.withRenderingMode(.alwaysOriginal), for: .normal)
-            if products.isStepExpandable{
+            product.isStepsExpandable = !product.isStepsExpandable
+            button.setImage(product.isStepsExpandable ? UIImage(named: "arrow_down")?.withRenderingMode(.alwaysOriginal) : UIImage(named: "arrow_up")?.withRenderingMode(.alwaysOriginal), for: .normal)
+            if product.isStepsExpandable{
                 
                 collectionView.deleteItems(at: indexPaths)
             }else{
@@ -107,24 +116,27 @@ extension DetailsController : UICollectionViewDelegateFlowLayout{
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0{
-            if products.isIngredientExpandable{
-                return 0
+        if let product = selectedProduct{
+            if section == 0{
+                if product.isIngredientExpandable{
+                    return 0
+                }
+                return ingredients.count
+            }else{
+                if product.isStepsExpandable{
+                    return 0
+                }
+                return steps.count
             }
-            return ingredient.count
-        }else{
-            if products.isStepExpandable{
-                return 0
-            }
-            return steps.count
         }
+        return 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0{
             let ingredientCell = collectionView.dequeueReusableCell(withReuseIdentifier: ingredientCellId, for: indexPath) as! IngredientCell
-            ingredientCell.titleLabel.text = ingredient[indexPath.row].name
-            ingredientCell.inputLabel.text = ingredient[indexPath.row].input
+            ingredientCell.titleLabel.text = ingredients[indexPath.row].name
+            ingredientCell.inputLabel.text = ingredients[indexPath.row].input
             return ingredientCell
         }
         let stepsCell = collectionView.dequeueReusableCell(withReuseIdentifier: stepsCellId, for: indexPath) as! StepsCell
@@ -150,47 +162,3 @@ extension DetailsController : UICollectionViewDelegateFlowLayout{
         return 1
     }
 }
-
-
-
-
-struct Ingredient{
-    let name : String
-    let input : String
-    
-    init(name : String, input : String){
-        self.name = name
-        self.input = input
-    }
-}
-
-struct Steps{
-    let step : Int
-    let name : String
-    let photoImage : UIImage?
-    
-    init(step: Int, name : String , photoImage : UIImage?){
-        self.step = step
-        self.name = name
-        self.photoImage = photoImage
-    }
-    
-}
-
-struct Prodcuts{
-    var isIngredientExpandable : Bool
-    var isStepExpandable : Bool
-    var title : String
-    var ingredient : [Ingredient]
-    var step : [Steps]
-    
-    init(isIngredientExpandable : Bool, isStepExpandable : Bool , title  : String , ingredients : [Ingredient] , steps : [Steps]){
-        
-        self.isIngredientExpandable = isIngredientExpandable
-        self.isStepExpandable = isStepExpandable
-        self.title = title
-        self.ingredient = ingredients
-        self.step = steps
-    }
-}
-

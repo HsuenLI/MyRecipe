@@ -10,13 +10,13 @@ import UIKit
 
 class StepsCell : UICollectionViewCell {
     
-    var step : Steps?{
+    var step : Step?{
         didSet{
-            guard let count = step?.step else {return}
+            guard let count = step?.count else {return}
             guard let name = step?.name else {return}
             titleLabel.text = "\(count). \(name)"
-            guard let image = step?.photoImage else {return}
-            photoImageView.image = image
+            guard let image = step?.image else {return}
+            photoImageView.image = UIImage(data: image)
         }
     }
     

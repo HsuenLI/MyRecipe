@@ -7,17 +7,20 @@
 //
 
 import UIKit
+import CoreData
 
 class HomeController: UICollectionViewController {
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     let cellId = "cellId"
     let cellPading : CGFloat = 10
 
-    var items : [Item] = [Item(image: "kiwi", title: "Kiwi Jam"),
-                          Item(image: "strawberry", title: "Strawberry Jam")]
+    var products = [Product]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateHome), name: NewItemController.notificationUpdateHome, object: nil)
         collectionView.backgroundColor = .white
         collectionView.register(HomeMenuCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.customCollectionViewLayout(cellPadding: cellPading)
@@ -27,6 +30,12 @@ class HomeController: UICollectionViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: self, action: nil)
         
         setupNavigation()
+        fetchProduct()
+    }
+    
+    @objc func handleUpdateHome(){
+        products.removeAll()
+        fetchProduct()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,12 +75,12 @@ class HomeController: UICollectionViewController {
 extension HomeController : UICollectionViewDelegateFlowLayout{
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+        return products.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeMenuCell
-        cell.item = items[indexPath.item]
+        cell.product = products[indexPath.item]
         return cell
     }
     
@@ -82,18 +91,23 @@ extension HomeController : UICollectionViewDelegateFlowLayout{
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailsController = DetailsController(collectionViewLayout : UICollectionViewFlowLayout())
+        detailsController.selectedProduct = products[indexPath.item]
         navigationController?.pushViewController(detailsController, animated: true)
     }
     
 }
 
-struct Item{
-    let image : String
-    let title : String
-    
-    init(image:String,title:String){
-        self.image = image
-        self.title = title
+extension HomeController{
+    func fetchProduct(){
+        let request : NSFetchRequest<Product> = Product.fetchRequest()
+        do{
+            products = try self.context.fetch(request)
+        }catch let err{
+            print("Failed to fetch product on home controller:", err)
+        }
+        
+        collectionView.reloadData()
     }
 }
+
 
