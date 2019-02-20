@@ -24,27 +24,28 @@ class HomeController: UICollectionViewController {
 
     var products = [Product]()
     
+    fileprivate func initialImageViewWithoutProduct() {
+        if products.count == 0{
+            initImageView.isHidden = false
+            if let window = UIApplication.shared.keyWindow{
+                window.addSubview(initImageView)
+                initImageView.anchor(top: window.topAnchor, left: window.leftAnchor, bottom: nil, right: window.rightAnchor, paddingTop: 120, paddingLeft: 15, paddingBottom: 0, paddingRight: 15, width: 0, height: 300)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateHome), name: NewItemController.notificationUpdateHome, object: nil)
         collectionView.backgroundColor = .white
         collectionView.register(HomeMenuCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.customCollectionViewLayout(cellPadding: cellPading)
-        let backIcon = UIImage(named: "back_icon")
-        navigationController?.navigationBar.backIndicatorImage = backIcon
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backIcon
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: self, action: nil)
         
         setupNavigation()
         fetchProduct()
         
-        if products.count == 0{
-            initImageView.isHidden = false
-            if let window = UIApplication.shared.keyWindow{
-                window.addSubview(initImageView)
-                initImageView.anchor(top: window.topAnchor, left: window.leftAnchor, bottom: nil, right: window.rightAnchor, paddingTop: 120, paddingLeft: 15, paddingBottom: 0, paddingRight: 15, width: 300, height: 300)
-            }
-        }
+        initialImageViewWithoutProduct()
+        
     }
     
     @objc func handleUpdateHome(){
@@ -57,6 +58,11 @@ class HomeController: UICollectionViewController {
     }
     
     fileprivate func setupNavigation(){
+        let backIcon = UIImage(named: "back_icon")
+        navigationController?.navigationBar.backIndicatorImage = backIcon
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backIcon
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: self, action: nil)
+        
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Menu"
@@ -96,6 +102,7 @@ extension HomeController : UICollectionViewDelegateFlowLayout{
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeMenuCell
         cell.product = products[indexPath.item]
+        cell.delegate = self
         return cell
     }
     
@@ -112,6 +119,7 @@ extension HomeController : UICollectionViewDelegateFlowLayout{
     
 }
 
+//Fetch Data
 extension HomeController{
     func fetchProduct(){
         let request : NSFetchRequest<Product> = Product.fetchRequest()
@@ -125,6 +133,32 @@ extension HomeController{
         
         collectionView.reloadData()
     }
+    
+    func saveProduct(){
+        do{
+            try context.save()
+        }catch let err{
+            print("Failed to save product on home controller:", err)
+        }
+    }
+}
+
+//Cell options button
+extension HomeController : homeCellOptionsDelegate{
+    
+    func handleHomeCellDelete(cell: HomeMenuCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else {return}
+        let selectedProduct = products[indexPath.item]
+        self.products.remove(at: indexPath.item)
+        context.delete(selectedProduct)
+        saveProduct()
+        collectionView.deleteItems(at: [indexPath])
+        collectionView.reloadData()
+        self.initialImageViewWithoutProduct()
+    }
+    
+
+ 
 }
 
 

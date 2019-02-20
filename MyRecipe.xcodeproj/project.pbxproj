@@ -18,6 +18,7 @@
 		CF93896F21FDC3E400090DAF /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93896E21FDC3E400090DAF /* Extension.swift */; };
 		CF93897121FDCBAF00090DAF /* HomeMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */; };
 		CF93899821FE13F100090DAF /* DetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93899721FE13F100090DAF /* DetailsController.swift */; };
+		CF9AF3DA221D44DD00B01AB8 /* HomeOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9AF3D9221D44DD00B01AB8 /* HomeOptionsView.swift */; };
 		CFBDB7902204D2C400DA723B /* NewItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB78F2204D2C400DA723B /* NewItemController.swift */; };
 		CFBDB7922204DD2500DA723B /* NewItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB7912204DD2500DA723B /* NewItemHeader.swift */; };
 		CFBDB79422056AC000DA723B /* AddNewIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB79322056AC000DA723B /* AddNewIngredientView.swift */; };
@@ -39,6 +40,7 @@
 		CF93896E21FDC3E400090DAF /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuCell.swift; sourceTree = "<group>"; };
 		CF93899721FE13F100090DAF /* DetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsController.swift; sourceTree = "<group>"; };
+		CF9AF3D9221D44DD00B01AB8 /* HomeOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOptionsView.swift; sourceTree = "<group>"; };
 		CFBDB78F2204D2C400DA723B /* NewItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemController.swift; sourceTree = "<group>"; };
 		CFBDB7912204DD2500DA723B /* NewItemHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemHeader.swift; sourceTree = "<group>"; };
 		CFBDB79322056AC000DA723B /* AddNewIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewIngredientView.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				CFBDB79322056AC000DA723B /* AddNewIngredientView.swift */,
 				CFBDB7952205BB1E00DA723B /* AddNewStepView.swift */,
 				CFF7AC00220C9E9300706D28 /* GearView.swift */,
+				CF9AF3D9221D44DD00B01AB8 /* HomeOptionsView.swift */,
 			);
 			path = NewItem;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				CF14D6F22201E6B0006B055B /* StepsCell.swift in Sources */,
 				CFBDB7922204DD2500DA723B /* NewItemHeader.swift in Sources */,
 				CF93895A21FDB7AB00090DAF /* AppDelegate.swift in Sources */,
+				CF9AF3DA221D44DD00B01AB8 /* HomeOptionsView.swift in Sources */,
 				CF14D6EE21FF5E60006B055B /* DetailHeaderCell.swift in Sources */,
 				CFBDB7902204D2C400DA723B /* NewItemController.swift in Sources */,
 				CF93899821FE13F100090DAF /* DetailsController.swift in Sources */,

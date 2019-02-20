@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol homeCellOptionsDelegate {
+    func handleHomeCellDelete(cell : HomeMenuCell)
+}
+
 class HomeMenuCell : CustomCell {
     
     var product : Product?{
@@ -18,6 +22,9 @@ class HomeMenuCell : CustomCell {
             titleLabel.text = product?.title
         }
     }
+    
+    var delegate : homeCellOptionsDelegate?
+    var homeOptionsView = HomeOptionsView()
     
     let imageView : UIImageView = {
         let iv = UIImageView()
@@ -34,12 +41,24 @@ class HomeMenuCell : CustomCell {
         label.textAlignment = .center
         return label
     }()
-    let optionButton : UIButton = {
+    
+    lazy var optionButton : UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "options"), for: .normal)
         button.tintColor = UIColor.customTextColor()
+        button.addTarget(self, action: #selector(handleOptions), for: .touchUpInside)
         return button
     }()
+    
+    var viewIsExpandable = true
+    
+    @objc func handleOptions(){
+        addSubview(homeOptionsView)
+        homeOptionsView.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 40, width: 80, height: 126)
+
+        homeOptionsView.isHidden = viewIsExpandable ? false : true
+        viewIsExpandable = !viewIsExpandable
+    }
 
         override func setupView() {
             addSubview(imageView)
@@ -53,5 +72,11 @@ class HomeMenuCell : CustomCell {
             titleLabel.anchor(top: separatorView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 0)
             addSubview(optionButton)
             optionButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 44, height: 44)
+            
+            homeOptionsView.deleteButton.addTarget(self, action: #selector(handleDelete), for: .touchUpInside)
+    }
+    
+    @objc func handleDelete(){
+        delegate?.handleHomeCellDelete(cell: self)
     }
 }
