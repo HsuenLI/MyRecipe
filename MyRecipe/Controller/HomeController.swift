@@ -15,6 +15,12 @@ class HomeController: UICollectionViewController {
     
     let cellId = "cellId"
     let cellPading : CGFloat = 10
+    let initImageView : UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "sample")
+        iv.contentMode = .scaleAspectFill
+        return iv
+    }()
 
     var products = [Product]()
     
@@ -31,6 +37,14 @@ class HomeController: UICollectionViewController {
         
         setupNavigation()
         fetchProduct()
+        
+        if products.count == 0{
+            initImageView.isHidden = false
+            if let window = UIApplication.shared.keyWindow{
+                window.addSubview(initImageView)
+                initImageView.anchor(top: window.topAnchor, left: window.leftAnchor, bottom: nil, right: window.rightAnchor, paddingTop: 120, paddingLeft: 15, paddingBottom: 0, paddingRight: 15, width: 300, height: 300)
+            }
+        }
     }
     
     @objc func handleUpdateHome(){
@@ -57,6 +71,7 @@ class HomeController: UICollectionViewController {
     }
     
     @objc func handleAddItem(){
+        initImageView.isHidden = true
         let newItemController = NewItemController(collectionViewLayout : UICollectionViewFlowLayout())
         navigationController?.pushViewController(newItemController, animated: true)
     }
@@ -100,6 +115,8 @@ extension HomeController : UICollectionViewDelegateFlowLayout{
 extension HomeController{
     func fetchProduct(){
         let request : NSFetchRequest<Product> = Product.fetchRequest()
+        let descriptor = NSSortDescriptor(key: "title", ascending: true)
+        request.sortDescriptors = [descriptor]
         do{
             products = try self.context.fetch(request)
         }catch let err{

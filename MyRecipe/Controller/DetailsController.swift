@@ -14,7 +14,7 @@ class DetailsController : UICollectionViewController {
     let ingredientCellId = "ingredientCellId"
     let stepsCellId = "stepsCellId"
     let cellPadding : CGFloat = 8
-    let productInstructionTitle = ["Ingredient", "Steps"]
+    let productInstructionTitle = ["Ingredients", "Steps"]
     var selectedProduct : Product?
     
     var ingredients = [Ingredient]()
@@ -36,13 +36,22 @@ class DetailsController : UICollectionViewController {
     fileprivate func fetchProductDetails(){
         guard let selectedProduct = selectedProduct else {return}
         
+        var sortIngredient = [Ingredient]()
         for ingredient in selectedProduct.ingredients!{
-            ingredients.append(ingredient as! Ingredient)
+            sortIngredient.append(ingredient as! Ingredient)
+        }
+        ingredients = sortIngredient.sorted { (i1, i2) -> Bool in
+            i1.input?.compare(i2.input!) == .orderedAscending
         }
         
+        var sortSteps = [Step]()
         for step in selectedProduct.steps!{
-            steps.append(step as! Step)
+            sortSteps.append(step as! Step)
         }
+        
+        steps = sortSteps.sorted(by: { (s1, s2) -> Bool in
+            s1.count < s2.count
+        })
     }
     
     fileprivate func setupNavigation(){
@@ -137,13 +146,11 @@ extension DetailsController : UICollectionViewDelegateFlowLayout{
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0{
             let ingredientCell = collectionView.dequeueReusableCell(withReuseIdentifier: ingredientCellId, for: indexPath) as! IngredientCell
-            ingredientCell.titleLabel.text = ingredients[indexPath.row].name
-            ingredientCell.inputLabel.text = ingredients[indexPath.row].input
+            ingredientCell.ingredient = ingredients[indexPath.row]
             return ingredientCell
         }
         let stepsCell = collectionView.dequeueReusableCell(withReuseIdentifier: stepsCellId, for: indexPath) as! StepsCell
-        stepsCell.titleLabel.text = steps[indexPath.row].name
-        stepsCell.photoImageView.image = UIImage(named: "strawberry")
+        stepsCell.step = steps[indexPath.item]
         return stepsCell
     }
     
