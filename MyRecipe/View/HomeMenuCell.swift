@@ -10,6 +10,7 @@ import UIKit
 
 protocol homeCellOptionsDelegate {
     func handleHomeCellDelete(cell : HomeMenuCell)
+    func handleHomeCellEdit(cell : HomeMenuCell)
 }
 
 class HomeMenuCell : CustomCell {
@@ -25,6 +26,7 @@ class HomeMenuCell : CustomCell {
     
     var delegate : homeCellOptionsDelegate?
     var homeOptionsView = HomeOptionsView()
+    var viewIsExpandable = true
     
     let imageView : UIImageView = {
         let iv = UIImageView()
@@ -50,8 +52,6 @@ class HomeMenuCell : CustomCell {
         return button
     }()
     
-    var viewIsExpandable = true
-    
     @objc func handleOptions(){
         addSubview(homeOptionsView)
         homeOptionsView.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 40, width: 80, height: 126)
@@ -74,9 +74,14 @@ class HomeMenuCell : CustomCell {
             optionButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 44, height: 44)
             
             homeOptionsView.deleteButton.addTarget(self, action: #selector(handleDelete), for: .touchUpInside)
+            homeOptionsView.editButton.addTarget(self, action: #selector(handleEdit), for: .touchUpInside)
     }
     
     @objc func handleDelete(){
         delegate?.handleHomeCellDelete(cell: self)
+    }
+    
+    @objc func handleEdit(){
+        delegate?.handleHomeCellEdit(cell: self)
     }
 }

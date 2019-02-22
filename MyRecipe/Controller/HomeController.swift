@@ -55,6 +55,7 @@ class HomeController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.prefersLargeTitles = true
+        initialImageViewWithoutProduct()
     }
     
     fileprivate func setupNavigation(){
@@ -145,6 +146,20 @@ extension HomeController{
 
 //Cell options button
 extension HomeController : homeCellOptionsDelegate{
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+    func handleHomeCellEdit(cell: HomeMenuCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else {return}
+        print(indexPath)
+        let newItemController = NewItemController(collectionViewLayout : UICollectionViewFlowLayout())
+        newItemController.selectedProduct = products[indexPath.item]
+        navigationController?.pushViewController(newItemController, animated: true)
+    }
+    
     
     func handleHomeCellDelete(cell: HomeMenuCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else {return}

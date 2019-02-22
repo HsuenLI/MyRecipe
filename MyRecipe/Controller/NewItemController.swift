@@ -25,6 +25,12 @@ class NewItemController : UICollectionViewController{
     var stepsCellHeight : CGFloat = 0
     var productTitle = ""
     let gearView = GearView()
+    var selectedProduct : Product?{
+        didSet{
+            fetchData()
+        }
+    }
+    var gearViewIsAppear = false
     
     //MARK : Blank view
     let blankWindow = UIView()
@@ -72,6 +78,33 @@ class NewItemController : UICollectionViewController{
         return button
     }()
     
+    fileprivate func fetchData(){
+        guard let product = selectedProduct else {return}
+        navigationController?.navigationBar.prefersLargeTitles = false
+        productTitle = product.title!
+        navigationItem.title = product.title
+        guard let imageData = product.image else {return}
+        productCoverImageButton.setImage(UIImage(data: imageData)?.withRenderingMode(.alwaysOriginal), for: .normal)
+        var sortIngredient = [Ingredient]()
+        for ingredient in product.ingredients!{
+            sortIngredient.append(ingredient as! Ingredient)
+        }
+        ingredients = sortIngredient.sorted { (i1, i2) -> Bool in
+            i1.input?.compare(i2.input!) == .orderedAscending
+        }
+        
+        var sortSteps = [Step]()
+        for step in product.steps!{
+            sortSteps.append(step as! Step)
+        }
+        
+        steps = sortSteps.sorted(by: { (s1, s2) -> Bool in
+            s1.count < s2.count
+        })
+        collectionView.reloadData()
+        saveProdcut()
+    }
+    
     @objc func handleItemPhoto(){
         let headerImagePicker = UIImagePickerController()
         headerImagePicker.delegate = self
@@ -87,6 +120,41 @@ class NewItemController : UICollectionViewController{
         setupCollectionView()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureView))
         view.addGestureRecognizer(tapGesture)
+        
+        let cellTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleCellTap))
+        collectionView.addGestureRecognizer(cellTapGesture)
+    }
+    
+    @objc func handleCellTap(_ gesture : UILongPressGestureRecognizer){
+        let point = gesture.location(in: collectionView)
+        guard let cell = collectionView.indexPathForItem(at: point) else {return}
+        let alert = UIAlertController(title: "Delete", message: "Continue to delete", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        alert.addAction(cancelAction)
+        let deleteAction = UIAlertAction(title: "Continue", style: .destructive) { (action) in
+            if cell.section == 0{
+                self.ingredients.remove(at: cell.row)
+            }else{
+                self.steps.remove(at: cell.row)
+            }
+            self.collectionView.reloadData()
+        }
+        alert.addAction(deleteAction)
+        present(alert,animated: true)
+    }
+    
+    func getCellAtPoint(_ point: CGPoint) -> UICollectionViewCell? {
+        // Function for getting item at point. Note optionals as it could be nil
+        let indexPath = collectionView?.indexPathForItem(at: point)
+        var cell : UICollectionViewCell?
+        
+        if indexPath != nil {
+            cell = collectionView?.cellForItem(at: indexPath!)
+        } else {
+            cell = nil
+        }
+        
+        return cell
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -109,7 +177,14 @@ class NewItemController : UICollectionViewController{
         if let window = UIApplication.shared.keyWindow{
             window.addSubview(gearView)
             gearView.anchor(top: window.topAnchor, left: nil, bottom: nil, right: window.rightAnchor, paddingTop: 90, paddingLeft: 0, paddingBottom: 0, paddingRight: 30, width: 100, height: 80.5)
+            gearView.isHidden = gearViewIsAppear ? false : true
+            gearViewIsAppear = !gearViewIsAppear
             gearView.addTitleButton.addTarget(self, action: #selector(handleNavigationTitle), for: .touchUpInside)
+            if navigationItem.title == ""{
+                gearView.saveButton.isEnabled = false
+            }else{
+                gearView.saveButton.isEnabled = true
+            }
             gearView.saveButton.addTarget(self, action: #selector(handleSavePressed), for: .touchUpInside)
         }
     }
@@ -131,6 +206,9 @@ class NewItemController : UICollectionViewController{
     }
     
     @objc func handleSavePressed(){
+        if let selectedProduct = selectedProduct{
+            context.delete(selectedProduct)
+        }
         let product = Product(context: context)
         product.title = productTitle
         product.image = productCoverImageButton.currentImage?.pngData()
@@ -163,7 +241,6 @@ class NewItemController : UICollectionViewController{
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffsetY = collectionView.contentOffset.y
-        print(contentOffsetY)
         if contentOffsetY > -200{
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
                 self.productCoverImageButton.isHidden = true
@@ -270,6 +347,7 @@ extension NewItemController{
         }
     }
     
+    //Press cross image to close add item view (ingredient view or step view)
     @objc func handleDismiss() {
         blankWindow.alpha = 0
         newIngredientView.isHidden = true
@@ -314,6 +392,8 @@ extension NewItemController : UIImagePickerControllerDelegate, UINavigationContr
             ingredient.name = ingredientName
             ingredient.input = inputAmount
             ingredients.append(ingredient)
+            newIngredientView.addButton.isEnabled = false
+            newIngredientView.addButton.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
         }else{
             guard let stepName = newStepView.itemDescritionTextView.text else {return}
             guard let image = newStepView.photoImageButton.currentImage else {return}
