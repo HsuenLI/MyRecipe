@@ -14,23 +14,33 @@ class NewItemController : UICollectionViewController{
     static let notificationUpdateHome = NSNotification.Name(rawValue: "updateHomeFeed")
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    //Cell settings
     let headerId = "headerId"
     let ingredientCellId = "ingredientCellId"
     let stepCellId = "stepCellId"
     let cellPadding : CGFloat = 8
     let productInstructionTitle = ["Ingredients", "Steps"]
+    var stepsCellHeight : CGFloat = 0
+    
+    //Models
     var product : Product?
     var ingredients = [Ingredient]()
     var steps = [Step]()
-    var stepsCellHeight : CGFloat = 0
+
+    //Navigation title parameter
     var productTitle = ""
+    
+    //Options gear view contain add title , save button
     let gearView = GearView()
+    var gearViewIsAppear = false
+    
+    //Product from home
     var selectedProduct : Product?{
         didSet{
             fetchData()
         }
     }
-    var gearViewIsAppear = false
     
     //MARK : Blank view
     let blankWindow = UIView()
@@ -78,6 +88,14 @@ class NewItemController : UICollectionViewController{
         return button
     }()
     
+    @objc func handleItemPhoto(){
+        let headerImagePicker = UIImagePickerController()
+        headerImagePicker.delegate = self
+        headerImagePicker.allowsEditing = true
+        present(headerImagePicker, animated: true, completion: nil)
+    }
+    
+    //Fetch data when user tap edit button from home
     fileprivate func fetchData(){
         guard let product = selectedProduct else {return}
         navigationController?.navigationBar.prefersLargeTitles = false
@@ -102,24 +120,16 @@ class NewItemController : UICollectionViewController{
             s1.count < s2.count
         })
         collectionView.reloadData()
-        saveProdcut()
     }
     
-    @objc func handleItemPhoto(){
-        let headerImagePicker = UIImagePickerController()
-        headerImagePicker.delegate = self
-        headerImagePicker.allowsEditing = true
-        present(headerImagePicker, animated: true, completion: nil)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
+        //Front page image
         view.addSubview(productCoverImageButton)
         productCoverImageButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 195)
         setupCollectionView()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureView))
-        view.addGestureRecognizer(tapGesture)
         
         let cellTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleCellTap))
         collectionView.addGestureRecognizer(cellTapGesture)
@@ -144,7 +154,6 @@ class NewItemController : UICollectionViewController{
     }
     
     func getCellAtPoint(_ point: CGPoint) -> UICollectionViewCell? {
-        // Function for getting item at point. Note optionals as it could be nil
         let indexPath = collectionView?.indexPathForItem(at: point)
         var cell : UICollectionViewCell?
         
@@ -153,7 +162,6 @@ class NewItemController : UICollectionViewController{
         } else {
             cell = nil
         }
-        
         return cell
     }
     
@@ -162,9 +170,6 @@ class NewItemController : UICollectionViewController{
         gearView.removeFromSuperview()
     }
     
-    @objc func handleTapGestureView(){
-        gearView.removeFromSuperview()
-    }
     
     fileprivate func setupNavigation(){
         navigationController?.navigationBar.prefersLargeTitles = false
@@ -205,6 +210,7 @@ class NewItemController : UICollectionViewController{
             present(alert,animated: true)
     }
     
+    //Gear view save button tapped
     @objc func handleSavePressed(){
         if let selectedProduct = selectedProduct{
             context.delete(selectedProduct)
@@ -415,6 +421,7 @@ extension NewItemController : UIImagePickerControllerDelegate, UINavigationContr
         collectionView.reloadData()
     }
     
+    //Core data save context
     func saveProdcut(){
         do{
             try context.save()
