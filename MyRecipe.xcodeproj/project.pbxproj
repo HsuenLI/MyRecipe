@@ -15,10 +15,14 @@
 		CF93896221FDB7AB00090DAF /* JamMaker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CF93896021FDB7AB00090DAF /* JamMaker.xcdatamodeld */; };
 		CF93896421FDB7AC00090DAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF93896321FDB7AC00090DAF /* Assets.xcassets */; };
 		CF93896721FDB7AC00090DAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF93896521FDB7AC00090DAF /* LaunchScreen.storyboard */; };
-		CF93896F21FDC3E400090DAF /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93896E21FDC3E400090DAF /* Extension.swift */; };
 		CF93897121FDCBAF00090DAF /* HomeMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */; };
 		CF93899821FE13F100090DAF /* DetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93899721FE13F100090DAF /* DetailsController.swift */; };
 		CF9AF3DA221D44DD00B01AB8 /* HomeOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9AF3D9221D44DD00B01AB8 /* HomeOptionsView.swift */; };
+		CFA38FEE228A098700151009 /* HomeEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA38FED228A098700151009 /* HomeEmptyView.swift */; };
+		CFA38FF1228A09D600151009 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA38FF0228A09D600151009 /* Color+Ext.swift */; };
+		CFA38FF3228A09DF00151009 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA38FF2228A09DF00151009 /* UIView+Layout.swift */; };
+		CFA38FF5228A09E400151009 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA38FF4228A09E300151009 /* CustomNavigationController.swift */; };
+		CFA38FF7228A09EA00151009 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA38FF6228A09EA00151009 /* Extension.swift */; };
 		CFBDB7902204D2C400DA723B /* NewItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB78F2204D2C400DA723B /* NewItemController.swift */; };
 		CFBDB7922204DD2500DA723B /* NewItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB7912204DD2500DA723B /* NewItemHeader.swift */; };
 		CFBDB79422056AC000DA723B /* AddNewIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBDB79322056AC000DA723B /* AddNewIngredientView.swift */; };
@@ -37,10 +41,14 @@
 		CF93896321FDB7AC00090DAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF93896621FDB7AC00090DAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CF93896821FDB7AC00090DAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CF93896E21FDC3E400090DAF /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuCell.swift; sourceTree = "<group>"; };
 		CF93899721FE13F100090DAF /* DetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsController.swift; sourceTree = "<group>"; };
 		CF9AF3D9221D44DD00B01AB8 /* HomeOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOptionsView.swift; sourceTree = "<group>"; };
+		CFA38FED228A098700151009 /* HomeEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyView.swift; sourceTree = "<group>"; };
+		CFA38FF0228A09D600151009 /* Color+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
+		CFA38FF2228A09DF00151009 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		CFA38FF4228A09E300151009 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		CFA38FF6228A09EA00151009 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		CFBDB78F2204D2C400DA723B /* NewItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemController.swift; sourceTree = "<group>"; };
 		CFBDB7912204DD2500DA723B /* NewItemHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemHeader.swift; sourceTree = "<group>"; };
 		CFBDB79322056AC000DA723B /* AddNewIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewIngredientView.swift; sourceTree = "<group>"; };
@@ -62,9 +70,10 @@
 		CF14D6F32201FC2C006B055B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CFA38FEB228A097000151009 /* Home */,
 				CFF7AC02220D86DE00706D28 /* Detail */,
 				CFBDB79922075A7700DA723B /* NewItem */,
-				CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */,
+				CFA38FEF228A09C600151009 /* Helper */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -105,9 +114,28 @@
 				CF93896521FDB7AC00090DAF /* LaunchScreen.storyboard */,
 				CF93896821FDB7AC00090DAF /* Info.plist */,
 				CF93896021FDB7AB00090DAF /* JamMaker.xcdatamodeld */,
-				CF93896E21FDC3E400090DAF /* Extension.swift */,
 			);
 			path = MyRecipe;
+			sourceTree = "<group>";
+		};
+		CFA38FEB228A097000151009 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				CFA38FED228A098700151009 /* HomeEmptyView.swift */,
+				CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		CFA38FEF228A09C600151009 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				CFA38FF0228A09D600151009 /* Color+Ext.swift */,
+				CFA38FF2228A09DF00151009 /* UIView+Layout.swift */,
+				CFA38FF4228A09E300151009 /* CustomNavigationController.swift */,
+				CFA38FF6228A09EA00151009 /* Extension.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		CFBDB79922075A7700DA723B /* NewItem */ = {
@@ -206,7 +234,9 @@
 				CF93897121FDCBAF00090DAF /* HomeMenuCell.swift in Sources */,
 				CF14D6F021FF68BA006B055B /* IngredientCell.swift in Sources */,
 				CFF7AC01220C9E9300706D28 /* GearView.swift in Sources */,
+				CFA38FF1228A09D600151009 /* Color+Ext.swift in Sources */,
 				CF93896221FDB7AB00090DAF /* JamMaker.xcdatamodeld in Sources */,
+				CFA38FEE228A098700151009 /* HomeEmptyView.swift in Sources */,
 				CFBDB79422056AC000DA723B /* AddNewIngredientView.swift in Sources */,
 				CFBDB7962205BB1E00DA723B /* AddNewStepView.swift in Sources */,
 				CF14D6F22201E6B0006B055B /* StepsCell.swift in Sources */,
@@ -214,9 +244,11 @@
 				CF93895A21FDB7AB00090DAF /* AppDelegate.swift in Sources */,
 				CF9AF3DA221D44DD00B01AB8 /* HomeOptionsView.swift in Sources */,
 				CF14D6EE21FF5E60006B055B /* DetailHeaderCell.swift in Sources */,
+				CFA38FF3228A09DF00151009 /* UIView+Layout.swift in Sources */,
+				CFA38FF7228A09EA00151009 /* Extension.swift in Sources */,
 				CFBDB7902204D2C400DA723B /* NewItemController.swift in Sources */,
 				CF93899821FE13F100090DAF /* DetailsController.swift in Sources */,
-				CF93896F21FDC3E400090DAF /* Extension.swift in Sources */,
+				CFA38FF5228A09E400151009 /* CustomNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -128,7 +128,7 @@ class NewItemController : UICollectionViewController{
         setupNavigation()
         //Front page image
         view.addSubview(productCoverImageButton)
-        productCoverImageButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 195)
+        productCoverImageButton.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 195))
         setupCollectionView()
         
         let cellTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleCellTap))
@@ -174,14 +174,14 @@ class NewItemController : UICollectionViewController{
     fileprivate func setupNavigation(){
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "gear"), style: .plain, target: self, action: #selector(handleAddTitleAndSave))
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor : UIColor.customTextColor()]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor :Color.textColor]
     }
     
     //Add Navigation title for item name
     @objc func handleAddTitleAndSave(){
         if let window = UIApplication.shared.keyWindow{
             window.addSubview(gearView)
-            gearView.anchor(top: window.topAnchor, left: nil, bottom: nil, right: window.rightAnchor, paddingTop: 90, paddingLeft: 0, paddingBottom: 0, paddingRight: 30, width: 100, height: 80.5)
+            gearView.anchor(top: window.topAnchor, leading: nil, bottom: nil, trailing: window.trailingAnchor,padding: .init(top: 90, left: 0, bottom: 0, right: 30),size: .init(width: 100, height: 80.5))
             gearView.isHidden = gearViewIsAppear ? false : true
             gearViewIsAppear = !gearViewIsAppear
             gearView.addTitleButton.addTarget(self, action: #selector(handleNavigationTitle), for: .touchUpInside)
@@ -333,7 +333,7 @@ extension NewItemController{
             blankWindow.backgroundColor = UIColor(white: 0, alpha: 0.7)
             window.addSubview(blankWindow)
             blankWindow.addSubview(crossButton)
-            crossButton.anchor(top: blankWindow.topAnchor, left: nil, bottom: nil, right: blankWindow.rightAnchor, paddingTop: 50, paddingLeft: 0, paddingBottom: 0, paddingRight: 20, width: 44, height: 44)
+            crossButton.anchor(top: blankWindow.topAnchor, leading: nil, bottom: nil, trailing: blankWindow.trailingAnchor,padding: .init(top: 50, left: 0, bottom: 0, right: 20),size: .init(width: 44, height: 44))
             crossButton.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
             
             blankWindow.frame = window.frame
@@ -341,13 +341,13 @@ extension NewItemController{
                 newIngredientView.itemTitleTextView.text = ""
                 newIngredientView.itemAmountTextField.text = ""
                 blankWindow.addSubview(newIngredientView)
-                newIngredientView.anchor(top: nil, left: blankWindow.leftAnchor, bottom: nil, right: blankWindow.rightAnchor, paddingTop: 0, paddingLeft: 5, paddingBottom: 0, paddingRight: 5, width: 0, height: 216)
+                newIngredientView.anchor(top: nil, leading: blankWindow.leadingAnchor, bottom: nil, trailing: blankWindow.trailingAnchor,padding: .init(top: 0, left: 5, bottom: 0, right: 5),size: .init(width: 0, height: 216))
                 newIngredientView.centerYAnchor.constraint(equalTo: blankWindow.centerYAnchor).isActive = true
             }else{
                 newStepView.itemDescritionTextView.text = ""
                 newStepView.photoImageButton.setImage(UIImage(named: "photo"), for: .normal)
                 blankWindow.addSubview(newStepView)
-                newStepView.anchor(top: nil, left: blankWindow.leftAnchor, bottom: nil, right: blankWindow.rightAnchor, paddingTop: 0, paddingLeft: 5, paddingBottom: 0, paddingRight: 5, width: 0, height: 550)
+                newStepView.anchor(top: nil, leading: blankWindow.leadingAnchor, bottom: nil, trailing: blankWindow.trailingAnchor,padding: .init(top: 0, left: 5, bottom: 0, right: 5),size: .init(width: 0, height: 550))
                 newStepView.centerYAnchor.constraint(equalTo: blankWindow.centerYAnchor).isActive = true
             }
         }
@@ -399,7 +399,7 @@ extension NewItemController : UIImagePickerControllerDelegate, UINavigationContr
             ingredient.input = inputAmount
             ingredients.append(ingredient)
             newIngredientView.addButton.isEnabled = false
-            newIngredientView.addButton.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+            newIngredientView.addButton.backgroundColor = UIColor(r: 240, g: 240, b: 240)
         }else{
             guard let stepName = newStepView.itemDescritionTextView.text else {return}
             guard let image = newStepView.photoImageButton.currentImage else {return}

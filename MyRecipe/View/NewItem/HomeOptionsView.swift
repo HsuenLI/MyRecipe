@@ -38,9 +38,9 @@ class HomeOptionsView : UIView{
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(editButton)
-        editButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 2, paddingLeft: 0, paddingBottom: 0, paddingRight: 2, width: 60, height: 60)
+        //editButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 2, paddingLeft: 0, paddingBottom: 0, paddingRight: 2, width: 60, height: 60)
         addSubview(deleteButton)
-        deleteButton.anchor(top: editButton.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 0, paddingBottom: 0, paddingRight: 2, width: 60, height: 60)
+        //deleteButton.anchor(top: editButton.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 0, paddingBottom: 0, paddingRight: 2, width: 60, height: 60)
     }
     
     required init?(coder aDecoder: NSCoder) {

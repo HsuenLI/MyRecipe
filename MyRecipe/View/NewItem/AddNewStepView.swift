@@ -18,7 +18,7 @@ class AddNewStepView : UIView, UITextViewDelegate{
         label.font = UIFont.boldSystemFont(ofSize: 25)
         label.textColor = .white
         label.textAlignment = .center
-        label.backgroundColor = UIColor.rgb(red: 240, green: 96, blue: 98)
+        //label.backgroundColor = UIColor.rgb(red: 240, green: 96, blue: 98)
         return label
     }()
     let itemTitleLabel : UILabel = {
@@ -30,7 +30,7 @@ class AddNewStepView : UIView, UITextViewDelegate{
     lazy var itemDescritionTextView : UITextView = {
         let tv = UITextView()
         tv.font = UIFont.systemFont(ofSize: 18)
-        tv.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+        //tv.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
         tv.layer.cornerRadius = 5.0
         tv.layer.masksToBounds = true
         tv.layer.borderWidth = 0.3
@@ -52,10 +52,10 @@ class AddNewStepView : UIView, UITextViewDelegate{
         let isFormValidate = itemDescritionTextView.text.count > 0
         if isFormValidate{
             addButton.isEnabled = true
-            addButton.backgroundColor = UIColor.rgb(red: 240, green: 98, blue: 96)
+           // addButton.backgroundColor = UIColor.rgb(red: 240, green: 98, blue: 96)
         }else{
             addButton.isEnabled = false
-            addButton.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+           // addButton.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
         }
     }
     
@@ -80,7 +80,7 @@ class AddNewStepView : UIView, UITextViewDelegate{
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Add", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.backgroundColor = UIColor.rgb(red: 240, green: 96, blue: 98)
+        //button.backgroundColor = UIColor.rgb(red: 240, green: 96, blue: 98)
         return button
     }()
     
@@ -88,19 +88,19 @@ class AddNewStepView : UIView, UITextViewDelegate{
         super.init(frame: frame)
         backgroundColor = .white
         addSubview(headerTitle)
-        headerTitle.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: titleSpacing)
+        //headerTitle.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: titleSpacing)
         
         addSubview(itemTitleLabel)
         addSubview(itemDescritionTextView)
-        itemTitleLabel.anchor(top: headerTitle.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: titleSpacing)
-        itemDescritionTextView.anchor(top: itemTitleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 0, paddingRight: 4, width: 0, height: 2*titleSpacing)
+        //itemTitleLabel.anchor(top: headerTitle.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: titleSpacing)
+        //itemDescritionTextView.anchor(top: itemTitleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 0, paddingRight: 4, width: 0, height: 2*titleSpacing)
         addSubview(itemPhotoImageLabel)
         addSubview(photoImageButton)
-        itemPhotoImageLabel.anchor(top: itemDescritionTextView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 0, paddingRight: 4, width: 0, height: titleSpacing)
-        photoImageButton.anchor(top: itemPhotoImageLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+       // itemPhotoImageLabel.anchor(top: itemDescritionTextView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 0, paddingRight: 4, width: 0, height: titleSpacing)
+        //photoImageButton.anchor(top: itemPhotoImageLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         photoImageButton.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
         addSubview(addButton)
-        addButton.anchor(top: photoImageButton.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: titleSpacing)
+       // addButton.anchor(top: photoImageButton.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: titleSpacing)
     }
     
     required init?(coder aDecoder: NSCoder) {

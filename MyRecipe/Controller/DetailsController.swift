@@ -58,15 +58,15 @@ class DetailsController : UICollectionViewController {
         navigationController?.hidesBarsOnSwipe = false
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.title = selectedProduct?.title
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.customTextColor()]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : Color.textColor.value]
     }
     
     fileprivate func setupCollectionView(){
-        collectionView.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+        collectionView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
         collectionView.register(DetailHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         collectionView.register(IngredientCell.self, forCellWithReuseIdentifier: ingredientCellId)
         collectionView.register(StepsCell.self, forCellWithReuseIdentifier: stepsCellId)
-        collectionView.customCollectionViewLayout(cellPadding: cellPadding)
+        //collectionView.customCollectionViewLayout(cellPadding: cellPadding)
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {

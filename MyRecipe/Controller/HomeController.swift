@@ -14,37 +14,21 @@ class HomeController: UICollectionViewController {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     let cellId = "cellId"
-    let cellPading : CGFloat = 10
-    let initImageView : UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(named: "sample")
-        iv.contentMode = .scaleAspectFill
-        return iv
-    }()
+    let emptyView = HomeEmptyView()
 
     var products = [Product]()
     
-    fileprivate func initialImageViewWithoutProduct() {
-        if products.count == 0{
-            initImageView.isHidden = false
-            if let window = UIApplication.shared.keyWindow{
-                window.addSubview(initImageView)
-                initImageView.anchor(top: window.topAnchor, left: window.leftAnchor, bottom: nil, right: window.rightAnchor, paddingTop: 120, paddingLeft: 15, paddingBottom: 0, paddingRight: 15, width: 0, height: 300)
-            }
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateHome), name: NewItemController.notificationUpdateHome, object: nil)
         collectionView.backgroundColor = .white
+        collectionView.backgroundView = emptyView
         collectionView.register(HomeMenuCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.customCollectionViewLayout(cellPadding: cellPading)
         
         setupNavigation()
         fetchProduct()
         
-        initialImageViewWithoutProduct()
         
     }
     
@@ -55,36 +39,32 @@ class HomeController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.prefersLargeTitles = true
-        initialImageViewWithoutProduct()
     }
     
     fileprivate func setupNavigation(){
-        let backIcon = UIImage(named: "back_icon")
+        let backIcon = UIImage(named: "back")
         navigationController?.navigationBar.backIndicatorImage = backIcon
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backIcon
         navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: self, action: nil)
         
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Menu"
+        navigationItem.title = "Home"
         navigationController?.navigationBar.largeTitleTextAttributes = attributedText(fontSize: 40)
-        navigationController?.navigationBar.barTintColor = UIColor.rgb(red: 240, green: 96, blue: 98)
-        navigationController?.navigationBar.titleTextAttributes = attributedText(fontSize: 14)
-        navigationController?.navigationBar.barTintColor = UIColor.rgb(red: 240, green: 96, blue: 98)
+        navigationController?.navigationBar.barTintColor = UIColor.white
+        navigationController?.navigationBar.shadowImage = UIImage()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAddItem))
-        navigationController?.navigationBar.tintColor = UIColor.rgb(red: 233, green: 206, blue: 111)
-        navigationController?.hidesBarsOnSwipe = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "add")?.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(handleAddItem))
+        navigationController?.navigationBar.tintColor = Color.customRed.value
     }
     
     @objc func handleAddItem(){
-        initImageView.isHidden = true
         let newItemController = NewItemController(collectionViewLayout : UICollectionViewFlowLayout())
         navigationController?.pushViewController(newItemController, animated: true)
     }
     
     fileprivate func attributedText(fontSize : CGFloat) -> [NSAttributedString.Key : Any] {
-        return [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: fontSize), NSAttributedString.Key.foregroundColor : UIColor.customTextColor()]
+        return [NSAttributedString.Key.font : UIFont.customFont(name: "BradleyHandITCTT-Bold", size: fontSize), NSAttributedString.Key.foregroundColor : Color.customRed.value]
     }
     
     
@@ -97,24 +77,24 @@ class HomeController: UICollectionViewController {
 extension HomeController : UICollectionViewDelegateFlowLayout{
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return products.count
+       emptyView.isHidden = products.count != 0
+        return 3
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeMenuCell
-        cell.product = products[indexPath.item]
+       // cell.product = products[indexPath.item]
         cell.delegate = self
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width-(2*cellPading)
-        return CGSize(width: width, height: 200)
+        return CGSize(width: view.frame.width, height: 124)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailsController = DetailsController(collectionViewLayout : UICollectionViewFlowLayout())
-        detailsController.selectedProduct = products[indexPath.item]
+        //detailsController.selectedProduct = products[indexPath.item]
         navigationController?.pushViewController(detailsController, animated: true)
     }
     
@@ -169,7 +149,6 @@ extension HomeController : homeCellOptionsDelegate{
         saveProduct()
         collectionView.deleteItems(at: [indexPath])
         collectionView.reloadData()
-        self.initialImageViewWithoutProduct()
     }
     
 

@@ -31,7 +31,7 @@ class DetailHeaderCell : UICollectionReusableView{
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.rgb(red: 240, green: 96, blue: 98)
+        backgroundColor = UIColor(r: 240, g: 96, b: 98)
         setupView()
         roundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 10)
     }
@@ -40,10 +40,10 @@ class DetailHeaderCell : UICollectionReusableView{
         addSubview(titleLabel)
         addSubview(arrowButton)
         
-        titleLabel.anchor(top: nil, left: safeAreaLayoutGuide.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 200, height: 0)
+        titleLabel.anchor(top: nil, leading: safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 8, bottom: 0, right: 0),size: .init(width: 200, height: 0))
         titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
-        arrowButton.anchor(top: nil, left: nil, bottom: nil, right: safeAreaLayoutGuide.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 44, height: 44)
+        arrowButton.anchor(top: nil, leading: nil, bottom: nil, trailing: safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 8),size: .init(width: 44, height: 44))
         arrowButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
