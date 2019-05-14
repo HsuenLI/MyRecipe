@@ -23,3 +23,15 @@ class CustomNavigationController : UINavigationController{
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 }
+
+
+extension UINavigationController{
+    func customNavigationBar(){
+        self.navigationBar.barTintColor = Color.customRed.value
+        self.navigationBar.titleTextAttributes =  [NSAttributedString.Key.font: UIFont(name: "BradleyHandITCTT-Bold", size: 18)!, NSAttributedString.Key.foregroundColor: Color.textColor.value]
+        self.navigationBar.tintColor = .white
+        let backIcon = UIImage(named: "back")
+        self.navigationBar.backIndicatorImage = backIcon
+        self.navigationBar.backIndicatorTransitionMaskImage = backIcon
+    }
+}

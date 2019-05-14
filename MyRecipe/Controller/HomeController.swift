@@ -21,7 +21,7 @@ class HomeController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateHome), name: NewItemController.notificationUpdateHome, object: nil)
+       // NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateHome), name: NewItemController.notificationUpdateHome, object: nil)
         collectionView.backgroundColor = .white
         collectionView.backgroundView = emptyView
         collectionView.register(HomeMenuCell.self, forCellWithReuseIdentifier: cellId)
@@ -39,6 +39,7 @@ class HomeController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.prefersLargeTitles = true
+        setupNavigation()
     }
     
     fileprivate func setupNavigation(){
@@ -59,8 +60,8 @@ class HomeController: UICollectionViewController {
     }
     
     @objc func handleAddItem(){
-        let newItemController = NewItemController(collectionViewLayout : UICollectionViewFlowLayout())
-        navigationController?.pushViewController(newItemController, animated: true)
+        let addNewRecipeController = AddNewRecipeController()
+        navigationController?.pushViewController(addNewRecipeController, animated: true)
     }
     
     fileprivate func attributedText(fontSize : CGFloat) -> [NSAttributedString.Key : Any] {
@@ -78,12 +79,12 @@ extension HomeController : UICollectionViewDelegateFlowLayout{
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
        emptyView.isHidden = products.count != 0
-        return 3
+        return products.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeMenuCell
-       // cell.product = products[indexPath.item]
+        cell.product = products[indexPath.item]
         cell.delegate = self
         return cell
     }
@@ -93,9 +94,9 @@ extension HomeController : UICollectionViewDelegateFlowLayout{
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailsController = DetailsController(collectionViewLayout : UICollectionViewFlowLayout())
+        //let detailsController = DetailsController(collectionViewLayout : UICollectionViewFlowLayout())
         //detailsController.selectedProduct = products[indexPath.item]
-        navigationController?.pushViewController(detailsController, animated: true)
+       // navigationController?.pushViewController(detailsController, animated: true)
     }
     
 }
@@ -135,9 +136,9 @@ extension HomeController : homeCellOptionsDelegate{
     func handleHomeCellEdit(cell: HomeMenuCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else {return}
         print(indexPath)
-        let newItemController = NewItemController(collectionViewLayout : UICollectionViewFlowLayout())
-        newItemController.selectedProduct = products[indexPath.item]
-        navigationController?.pushViewController(newItemController, animated: true)
+        //let newItemController = NewItemController(collectionViewLayout : UICollectionViewFlowLayout())
+       // newItemController.selectedProduct = products[indexPath.item]
+       // navigationController?.pushViewController(newItemController, animated: true)
     }
     
     
