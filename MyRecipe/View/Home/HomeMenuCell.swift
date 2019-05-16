@@ -21,6 +21,8 @@ class HomeMenuCell : UICollectionViewCell {
             imageView.image = UIImage(data: image)
             
             titleLabel.text = product?.title
+            let level = product?.level
+            showLevelStar(level: level ?? 1)
         }
     }
     
@@ -64,11 +66,33 @@ class HomeMenuCell : UICollectionViewCell {
         return button
     }()
     
-    let starImagView = UIImageView(imageName: "star")
-    let star2ImagView = UIImageView(imageName: "star")
-    let star3ImagView = UIImageView(imageName: "star")
-    let star4ImagView = UIImageView(imageName: "star")
-    let star5ImagView = UIImageView(imageName: "star")
+    let starImagView = UIImageView()
+    let star2ImagView = UIImageView()
+    let star3ImagView = UIImageView()
+    let star4ImagView = UIImageView()
+    let star5ImagView = UIImageView()
+    
+    func showLevelStar(level : Int32){
+        let views = [starImagView,star2ImagView,star3ImagView,star4ImagView,star5ImagView]
+        for view in views{
+            view.image = UIImage(named: "star")?.withRenderingMode(.alwaysTemplate)
+            view.tintColor = Color.customRed.value
+        }
+        
+        if level == 1{
+            for index in 1..<views.count{
+                views[index].tintColor = Color.borderColor.value
+            }
+            return
+        }
+        if level == 3{
+            for index in 3..<views.count{
+                views[index].tintColor = Color.borderColor.value
+            }
+            return
+        }
+        
+    }
     
     @objc func handleOptions(){
 //        addSubview(homeOptionsView)
@@ -102,10 +126,11 @@ class HomeMenuCell : UICollectionViewCell {
         addSubview(levelLabel)
         levelLabel.anchor(top: titleLabel.bottomAnchor, leading: imageView.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 19, left: 14, bottom: 0, right: 0),size: .init(width: 54, height: 18))
         
-        let starStackView = UIStackView(arrangedSubviews: [starImagView,star2ImagView,star3ImagView,star4ImagView,star5ImagView])
+        let imageViews = [starImagView,star2ImagView,star3ImagView,star4ImagView,star5ImagView]
+        let starStackView = UIStackView(arrangedSubviews: imageViews)
         addSubview(starStackView)
-        starStackView.distribution = .fillEqually
-        starStackView.alignment = .center
+        starStackView.distribution = .equalSpacing
+        starStackView.alignment = .leading
         starStackView.anchor(top: titleLabel.bottomAnchor, leading: levelLabel.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 16, left: 20, bottom: 0, right: 0),size: .init(width: 140, height: 24))
         addSubview(modifyDateLabel)
         modifyDateLabel.textAlignment = .right

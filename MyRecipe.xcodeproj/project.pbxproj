@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		CF93895A21FDB7AB00090DAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93895921FDB7AB00090DAF /* AppDelegate.swift */; };
 		CF93895C21FDB7AB00090DAF /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93895B21FDB7AB00090DAF /* HomeController.swift */; };
-		CF93896221FDB7AB00090DAF /* MyRecipe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CF93896021FDB7AB00090DAF /* MyRecipe.xcdatamodeld */; };
 		CF93896421FDB7AC00090DAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF93896321FDB7AC00090DAF /* Assets.xcassets */; };
 		CF93896721FDB7AC00090DAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF93896521FDB7AC00090DAF /* LaunchScreen.storyboard */; };
 		CF93897121FDCBAF00090DAF /* HomeMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93897021FDCBAF00090DAF /* HomeMenuCell.swift */; };
@@ -19,13 +18,20 @@
 		CFA38FF3228A09DF00151009 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA38FF2228A09DF00151009 /* UIView+Layout.swift */; };
 		CFA38FF5228A09E400151009 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA38FF4228A09E300151009 /* CustomNavigationController.swift */; };
 		CFA38FF7228A09EA00151009 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA38FF6228A09EA00151009 /* Extension.swift */; };
-		CFA38FF9228A19F300151009 /* AddNewRecipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA38FF8228A19F300151009 /* AddNewRecipeController.swift */; };
 		CFA38FFB228A1EBF00151009 /* AddNewRecipeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA38FFA228A1EBF00151009 /* AddNewRecipeHeader.swift */; };
-		CFA38FFD228A9F0400151009 /* AddNewRecipeHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA38FFC228A9F0400151009 /* AddNewRecipeHomeCell.swift */; };
-		CFA38FFF228A9F4B00151009 /* AddRecipeContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA38FFE228A9F4B00151009 /* AddRecipeContentController.swift */; };
-		CFA39001228AA1E100151009 /* AddNewRecipeContentHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA39000228AA1E100151009 /* AddNewRecipeContentHeader.swift */; };
-		CFA39003228AAB2C00151009 /* NewRecipeIngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA39002228AAB2C00151009 /* NewRecipeIngredientCell.swift */; };
 		CFA39005228AB11200151009 /* NewRecipeStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA39004228AB11200151009 /* NewRecipeStepCell.swift */; };
+		CFA39007228BF06600151009 /* NewRecipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA39006228BF06600151009 /* NewRecipeController.swift */; };
+		CFA39024228BF5C900151009 /* AddNewRecipeContentHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA39023228BF5C900151009 /* AddNewRecipeContentHeader.swift */; };
+		CFA39026228BF5DE00151009 /* NewRecipeIngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA39025228BF5DE00151009 /* NewRecipeIngredientCell.swift */; };
+		CFA39028228BF60500151009 /* NewRecipeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA39027228BF60500151009 /* NewRecipeFooterView.swift */; };
+		CFA3902A228BF74600151009 /* NewRecipeTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA39029228BF74600151009 /* NewRecipeTitleCell.swift */; };
+		CFA3902B228C915400151009 /* MyRecipe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CF93896021FDB7AB00090DAF /* MyRecipe.xcdatamodeld */; };
+		CFA3902D228CA73200151009 /* ShowDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA3902C228CA73200151009 /* ShowDetailsController.swift */; };
+		CFA3902F228CACD900151009 /* DetailsTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA3902E228CACD900151009 /* DetailsTitleCell.swift */; };
+		CFA39031228CB16600151009 /* DetailsIngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA39030228CB16600151009 /* DetailsIngredientCell.swift */; };
+		CFA39033228CB6F900151009 /* DetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA39032228CB6F900151009 /* DetailsHeaderView.swift */; };
+		CFA39035228CB9D000151009 /* DetailsStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA39034228CB9D000151009 /* DetailsStepCell.swift */; };
+		CFCC5F56228D42A3003CDC52 /* EditRecipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCC5F55228D42A3003CDC52 /* EditRecipeController.swift */; };
 		CFF7AC01220C9E9300706D28 /* GearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7AC00220C9E9300706D28 /* GearView.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,13 +50,19 @@
 		CFA38FF2228A09DF00151009 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		CFA38FF4228A09E300151009 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		CFA38FF6228A09EA00151009 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		CFA38FF8228A19F300151009 /* AddNewRecipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRecipeController.swift; sourceTree = "<group>"; };
 		CFA38FFA228A1EBF00151009 /* AddNewRecipeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRecipeHeader.swift; sourceTree = "<group>"; };
-		CFA38FFC228A9F0400151009 /* AddNewRecipeHomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRecipeHomeCell.swift; sourceTree = "<group>"; };
-		CFA38FFE228A9F4B00151009 /* AddRecipeContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeContentController.swift; sourceTree = "<group>"; };
-		CFA39000228AA1E100151009 /* AddNewRecipeContentHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRecipeContentHeader.swift; sourceTree = "<group>"; };
-		CFA39002228AAB2C00151009 /* NewRecipeIngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecipeIngredientCell.swift; sourceTree = "<group>"; };
 		CFA39004228AB11200151009 /* NewRecipeStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecipeStepCell.swift; sourceTree = "<group>"; };
+		CFA39006228BF06600151009 /* NewRecipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecipeController.swift; sourceTree = "<group>"; };
+		CFA39023228BF5C900151009 /* AddNewRecipeContentHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewRecipeContentHeader.swift; sourceTree = "<group>"; };
+		CFA39025228BF5DE00151009 /* NewRecipeIngredientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRecipeIngredientCell.swift; sourceTree = "<group>"; };
+		CFA39027228BF60500151009 /* NewRecipeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecipeFooterView.swift; sourceTree = "<group>"; };
+		CFA39029228BF74600151009 /* NewRecipeTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecipeTitleCell.swift; sourceTree = "<group>"; };
+		CFA3902C228CA73200151009 /* ShowDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsController.swift; sourceTree = "<group>"; };
+		CFA3902E228CACD900151009 /* DetailsTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTitleCell.swift; sourceTree = "<group>"; };
+		CFA39030228CB16600151009 /* DetailsIngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsIngredientCell.swift; sourceTree = "<group>"; };
+		CFA39032228CB6F900151009 /* DetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsHeaderView.swift; sourceTree = "<group>"; };
+		CFA39034228CB9D000151009 /* DetailsStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsStepCell.swift; sourceTree = "<group>"; };
+		CFCC5F55228D42A3003CDC52 /* EditRecipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeController.swift; sourceTree = "<group>"; };
 		CFF7AC00220C9E9300706D28 /* GearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +80,7 @@
 		CF14D6F32201FC2C006B055B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CFCC5F54228D428E003CDC52 /* Edit */,
 				CFA38FEB228A097000151009 /* Home */,
 				CFF7AC02220D86DE00706D28 /* Detail */,
 				CFBDB79922075A7700DA723B /* NewItem */,
@@ -80,8 +93,9 @@
 			isa = PBXGroup;
 			children = (
 				CF93895B21FDB7AB00090DAF /* HomeController.swift */,
-				CFA38FF8228A19F300151009 /* AddNewRecipeController.swift */,
-				CFA38FFE228A9F4B00151009 /* AddRecipeContentController.swift */,
+				CFA39006228BF06600151009 /* NewRecipeController.swift */,
+				CFA3902C228CA73200151009 /* ShowDetailsController.swift */,
+				CFCC5F55228D42A3003CDC52 /* EditRecipeController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -139,20 +153,32 @@
 		CFBDB79922075A7700DA723B /* NewItem */ = {
 			isa = PBXGroup;
 			children = (
-				CFA38FFC228A9F0400151009 /* AddNewRecipeHomeCell.swift */,
 				CFF7AC00220C9E9300706D28 /* GearView.swift */,
 				CF9AF3D9221D44DD00B01AB8 /* HomeOptionsView.swift */,
 				CFA38FFA228A1EBF00151009 /* AddNewRecipeHeader.swift */,
-				CFA39000228AA1E100151009 /* AddNewRecipeContentHeader.swift */,
-				CFA39002228AAB2C00151009 /* NewRecipeIngredientCell.swift */,
+				CFA39023228BF5C900151009 /* AddNewRecipeContentHeader.swift */,
+				CFA39025228BF5DE00151009 /* NewRecipeIngredientCell.swift */,
 				CFA39004228AB11200151009 /* NewRecipeStepCell.swift */,
+				CFA39027228BF60500151009 /* NewRecipeFooterView.swift */,
+				CFA39029228BF74600151009 /* NewRecipeTitleCell.swift */,
 			);
 			path = NewItem;
+			sourceTree = "<group>";
+		};
+		CFCC5F54228D428E003CDC52 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Edit;
 			sourceTree = "<group>";
 		};
 		CFF7AC02220D86DE00706D28 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				CFA3902E228CACD900151009 /* DetailsTitleCell.swift */,
+				CFA39030228CB16600151009 /* DetailsIngredientCell.swift */,
+				CFA39032228CB6F900151009 /* DetailsHeaderView.swift */,
+				CFA39034228CB9D000151009 /* DetailsStepCell.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -228,23 +254,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF93895C21FDB7AB00090DAF /* HomeController.swift in Sources */,
-				CFA38FFD228A9F0400151009 /* AddNewRecipeHomeCell.swift in Sources */,
+				CFA39035228CB9D000151009 /* DetailsStepCell.swift in Sources */,
 				CF93897121FDCBAF00090DAF /* HomeMenuCell.swift in Sources */,
 				CFF7AC01220C9E9300706D28 /* GearView.swift in Sources */,
+				CFA3902B228C915400151009 /* MyRecipe.xcdatamodeld in Sources */,
 				CFA38FF1228A09D600151009 /* Color+Ext.swift in Sources */,
-				CF93896221FDB7AB00090DAF /* MyRecipe.xcdatamodeld in Sources */,
 				CFA38FEE228A098700151009 /* HomeEmptyView.swift in Sources */,
-				CFA39001228AA1E100151009 /* AddNewRecipeContentHeader.swift in Sources */,
+				CFCC5F56228D42A3003CDC52 /* EditRecipeController.swift in Sources */,
+				CFA39026228BF5DE00151009 /* NewRecipeIngredientCell.swift in Sources */,
 				CFA38FFB228A1EBF00151009 /* AddNewRecipeHeader.swift in Sources */,
+				CFA39024228BF5C900151009 /* AddNewRecipeContentHeader.swift in Sources */,
+				CFA39007228BF06600151009 /* NewRecipeController.swift in Sources */,
 				CF93895A21FDB7AB00090DAF /* AppDelegate.swift in Sources */,
+				CFA39028228BF60500151009 /* NewRecipeFooterView.swift in Sources */,
+				CFA39031228CB16600151009 /* DetailsIngredientCell.swift in Sources */,
 				CF9AF3DA221D44DD00B01AB8 /* HomeOptionsView.swift in Sources */,
-				CFA38FFF228A9F4B00151009 /* AddRecipeContentController.swift in Sources */,
+				CFA3902F228CACD900151009 /* DetailsTitleCell.swift in Sources */,
 				CFA38FF3228A09DF00151009 /* UIView+Layout.swift in Sources */,
 				CFA38FF7228A09EA00151009 /* Extension.swift in Sources */,
+				CFA3902D228CA73200151009 /* ShowDetailsController.swift in Sources */,
 				CFA39005228AB11200151009 /* NewRecipeStepCell.swift in Sources */,
-				CFA39003228AAB2C00151009 /* NewRecipeIngredientCell.swift in Sources */,
-				CFA38FF9228A19F300151009 /* AddNewRecipeController.swift in Sources */,
+				CFA3902A228BF74600151009 /* NewRecipeTitleCell.swift in Sources */,
 				CFA38FF5228A09E400151009 /* CustomNavigationController.swift in Sources */,
+				CFA39033228CB6F900151009 /* DetailsHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -40,6 +40,7 @@ class HomeController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.prefersLargeTitles = true
         setupNavigation()
+        fetchProduct()
     }
     
     fileprivate func setupNavigation(){
@@ -60,7 +61,7 @@ class HomeController: UICollectionViewController {
     }
     
     @objc func handleAddItem(){
-        let addNewRecipeController = AddNewRecipeController()
+        let addNewRecipeController = NewRecipeController()
         navigationController?.pushViewController(addNewRecipeController, animated: true)
     }
     
@@ -94,9 +95,9 @@ extension HomeController : UICollectionViewDelegateFlowLayout{
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //let detailsController = DetailsController(collectionViewLayout : UICollectionViewFlowLayout())
-        //detailsController.selectedProduct = products[indexPath.item]
-       // navigationController?.pushViewController(detailsController, animated: true)
+        let detailsController = ShowDetailsController()
+        detailsController.product = self.products[indexPath.item]
+        navigationController?.pushViewController(detailsController, animated: true)
     }
     
 }
@@ -105,7 +106,7 @@ extension HomeController : UICollectionViewDelegateFlowLayout{
 extension HomeController{
     func fetchProduct(){
         let request : NSFetchRequest<Product> = Product.fetchRequest()
-        let descriptor = NSSortDescriptor(key: "title", ascending: true)
+        let descriptor = NSSortDescriptor(key: "modifiedDate", ascending: false)
         request.sortDescriptors = [descriptor]
         do{
             products = try self.context.fetch(request)
