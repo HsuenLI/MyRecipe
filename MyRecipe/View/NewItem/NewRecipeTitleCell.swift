@@ -16,6 +16,9 @@ protocol NewRecipeTitleCellDelegate {
 
 class NewRecipeTitleCell : UICollectionViewCell{
     
+    //editController
+    var editRecipeController : EditRecipeController?
+    
     var newRecipeController : NewRecipeController?
     var addDelegate : NewRecipeTitleCellDelegate?
     
@@ -103,6 +106,7 @@ extension NewRecipeTitleCell : UITextFieldDelegate{
                 let attributedText = NSMutableAttributedString(string: "Please give a title for recipe", attributes: [NSAttributedString.Key.foregroundColor : Color.customRed.value])
                 sender.attributedPlaceholder = attributedText
                 newRecipeController?.removeNavigationRightItme()
+                editRecipeController?.removeNavigationRightItme()
             }
         }
 

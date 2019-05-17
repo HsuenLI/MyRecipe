@@ -20,6 +20,8 @@ class NewRecipeStepCell : UICollectionViewCell, UITextViewDelegate{
             textView.text = step.text
             guard let image = step.checked ? "cellSave" : "cellUnsave" else {return}
             checkButton.setImage(UIImage(named: image), for: .normal)
+            placeholderLabel.isHidden = step.text.count > 0 ? true : false
+            
         }
     }
     var stepDeleagate : NewRecipeStepCellDelegate?

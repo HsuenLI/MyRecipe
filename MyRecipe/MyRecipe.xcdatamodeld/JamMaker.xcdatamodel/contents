@@ -3,25 +3,26 @@
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="input" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="productTitle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="ingredients" inverseEntity="Product" syncable="YES"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="ingredients" inverseEntity="Product" syncable="YES"/>
     </entity>
     <entity name="Product" representedClassName="Product" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="level" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="productTitle" inverseEntity="Ingredient" syncable="YES"/>
-        <relationship name="steps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Step" inverseName="productTitle" inverseEntity="Step" syncable="YES"/>
+        <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="product" inverseEntity="Ingredient" syncable="YES"/>
+        <relationship name="steps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Step" inverseName="product" inverseEntity="Step" syncable="YES"/>
     </entity>
     <entity name="Step" representedClassName="Step" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="productTitle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="steps" inverseEntity="Product" syncable="YES"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="steps" inverseEntity="Product" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Ingredient" positionX="133.8671875" positionY="-39.95703125" width="128" height="90"/>
-        <element name="Product" positionX="-63" positionY="-18" width="128" height="135"/>
-        <element name="Step" positionX="135.1796875" positionY="75.84765625" width="128" height="105"/>
+        <element name="Ingredient" positionX="133.8671875" positionY="-39.95703125" width="128" height="88"/>
+        <element name="Product" positionX="-114.09375" positionY="-6.6171875" width="128" height="148"/>
+        <element name="Step" positionX="135.1796875" positionY="75.84765625" width="128" height="103"/>
     </elements>
 </model>

@@ -9,8 +9,7 @@
 import UIKit
 
 protocol homeCellOptionsDelegate {
-    func handleHomeCellDelete(cell : HomeMenuCell)
-    func handleHomeCellEdit(cell : HomeMenuCell)
+    func handleOptionButtons(sender : UIButton, cell : HomeMenuCell)
 }
 
 class HomeMenuCell : UICollectionViewCell {
@@ -23,12 +22,20 @@ class HomeMenuCell : UICollectionViewCell {
             titleLabel.text = product?.title
             let level = product?.level
             showLevelStar(level: level ?? 1)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            dateFormatter.locale = Locale.current
+            if let date = product!.modifiedDate{
+                let modifiedDate = dateFormatter.string(from: date)
+                modifyDateLabel.text = "Modified :" + modifiedDate
+            }
         }
     }
     
     var delegate : homeCellOptionsDelegate?
     var homeOptionsView = HomeOptionsView()
-    var viewIsExpandable = true
+    var viewIsExpandable = false
     
     let imageView : UIImageView = {
         let iv = UIImageView()
@@ -95,11 +102,17 @@ class HomeMenuCell : UICollectionViewCell {
     }
     
     @objc func handleOptions(){
-//        addSubview(homeOptionsView)
-//        homeOptionsView.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 40, width: 80, height: 126)
-//
-//        homeOptionsView.isHidden = viewIsExpandable ? false : true
-//        viewIsExpandable = !viewIsExpandable
+        addSubview(homeOptionsView)
+        homeOptionsView.delegate = self
+        homeOptionsView.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 44, left: 0, bottom: 0, right: 10), size: .init(width: 114, height: 60))
+        homeOptionsView.layer.cornerRadius = 30
+        homeOptionsView.layer.masksToBounds = true
+        handleViewExpandable(isExpandable: viewIsExpandable)
+    }
+    
+    func handleViewExpandable(isExpandable : Bool){
+        viewIsExpandable = !viewIsExpandable
+        homeOptionsView.isHidden = viewIsExpandable ? false : true
     }
     
     override init(frame: CGRect) {
@@ -119,7 +132,7 @@ class HomeMenuCell : UICollectionViewCell {
         imageView.centerYInSuperview()
         
         addSubview(optionButton)
-        optionButton.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 20, left: 0, bottom: 0, right: 20),size: .init(width: 20, height: 20))
+        optionButton.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: 0),size: .init(width: 44, height: 44))
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, leading: imageView.trailingAnchor, bottom: nil, trailing: optionButton.leadingAnchor,padding: .init(top: 18, left: 14, bottom: 0, right: 5),size: .init(width: 0, height: 25))
         
@@ -140,15 +153,11 @@ class HomeMenuCell : UICollectionViewCell {
         separatorView.backgroundColor = Color.borderColor.value
         addSubview(separatorView)
         separatorView.anchor(top: bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,size : .init(width: 0, height: 0.5))
-        homeOptionsView.deleteButton.addTarget(self, action: #selector(handleDelete), for: .touchUpInside)
-        homeOptionsView.editButton.addTarget(self, action: #selector(handleEdit), for: .touchUpInside)
     }
-    
-    @objc func handleDelete(){
-        delegate?.handleHomeCellDelete(cell: self)
-    }
-    
-    @objc func handleEdit(){
-        delegate?.handleHomeCellEdit(cell: self)
+}
+
+extension HomeMenuCell : HomeOptionsViewDelegate{
+    func didTapOptionsButtons(sender: UIButton) {
+        delegate?.handleOptionButtons(sender: sender, cell: self)
     }
 }

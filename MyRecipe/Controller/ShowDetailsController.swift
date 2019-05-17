@@ -36,14 +36,16 @@ class ShowDetailsController : UICollectionViewController{
         navigationItem.title = product?.title
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.customNavigationBar()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(handleEditProduct))
         fetchData()
         stepProductModel()
     }
     
     @objc func  handleEditProduct(){
-        let newRecipeController = NewRecipeController()
-        navigationController?.pushViewController(newRecipeController, animated: true)
+        let editRecipeController = EditRecipeController()
+        editRecipeController.product = product
+        navigationController?.pushViewController(editRecipeController, animated: true)
     }
     
     private func stepProductModel(){

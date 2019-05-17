@@ -58,7 +58,9 @@ class NewRecipeController : UICollectionViewController{
     @objc func handleAddNewRecipeButton(){
         //TODO : Handle save to database
         guard let title = recipeTitle else {return}
+        let randomID = NSUUID().uuidString
         let product = Product(context: context)
+        product.id = randomID
         product.title = title
         if let titleImage = recipeimage{
             product.image = titleImage.jpegData(compressionQuality: 0.3)
@@ -71,7 +73,7 @@ class NewRecipeController : UICollectionViewController{
             if ingredient.checked{
                 let singleIngredient = Ingredient(context: context)
                 singleIngredient.input = ingredient.ingredients
-                singleIngredient.productTitle = product
+                singleIngredient.product = product
                 singleIngredient.date = ingredient.date
                 self.saveDateInDatabase()
             }
@@ -83,7 +85,7 @@ class NewRecipeController : UICollectionViewController{
                 singleStep.date = step.date
                 singleStep.image = step.stepImage.jpegData(compressionQuality: 0.3)
                 singleStep.text = step.text
-                singleStep.productTitle = product
+                singleStep.product = product
                 self.saveDateInDatabase()
             }
         }

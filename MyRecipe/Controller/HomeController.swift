@@ -21,15 +21,12 @@ class HomeController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateHome), name: NewItemController.notificationUpdateHome, object: nil)
         collectionView.backgroundColor = .white
         collectionView.backgroundView = emptyView
         collectionView.register(HomeMenuCell.self, forCellWithReuseIdentifier: cellId)
         
         setupNavigation()
         fetchProduct()
-        
-        
     }
     
     @objc func handleUpdateHome(){
@@ -128,33 +125,28 @@ extension HomeController{
 
 //Cell options button
 extension HomeController : homeCellOptionsDelegate{
+    func handleOptionButtons(sender: UIButton, cell: HomeMenuCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else {return}
+        let selectedProduct = products[indexPath.item]
+        //Delete data
+        if sender.tag == 1{
+            self.products.remove(at: indexPath.item)
+            context.delete(selectedProduct)
+            saveProduct()
+            collectionView.reloadData()
+        }else{
+            //Edit data
+            let editController = EditRecipeController()
+            editController.product = products[indexPath.item]
+            cell.handleViewExpandable(isExpandable: false)
+            navigationController?.pushViewController(editController, animated: true)
+        }
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
     }
-    
-    func handleHomeCellEdit(cell: HomeMenuCell) {
-        guard let indexPath = collectionView.indexPath(for: cell) else {return}
-        print(indexPath)
-        //let newItemController = NewItemController(collectionViewLayout : UICollectionViewFlowLayout())
-       // newItemController.selectedProduct = products[indexPath.item]
-       // navigationController?.pushViewController(newItemController, animated: true)
-    }
-    
-    
-    func handleHomeCellDelete(cell: HomeMenuCell) {
-        guard let indexPath = collectionView.indexPath(for: cell) else {return}
-        let selectedProduct = products[indexPath.item]
-        self.products.remove(at: indexPath.item)
-        context.delete(selectedProduct)
-        saveProduct()
-        collectionView.deleteItems(at: [indexPath])
-        collectionView.reloadData()
-    }
-    
-
- 
 }
 
 
